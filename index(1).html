@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>FEED HUNGRY PUMKIN!</title>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+<meta name="viewport" content="width=device-width">
+<style type="text/css">
+body {
+	background: linear-gradient(white, #37afec);
+	background-repeat: repeat-x;
+	background-color: #37afec;
+}
+* {
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+
+#menuButtons {
+    animation-duration: 2s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+}
+
+@keyframes menuOpen {
+    from {
+        right: -200px;
+    }
+
+    to {
+        right: 0px;
+    }
+}
+
+@keyframes menuClose {
+    from {
+        right: 0px;
+    }
+
+    to {
+        right: -200px;
+    }
+}
+</style>
+<script src="Thingy.js"></script>
+<script src="main.js"></script>
+
+</head>
+<body onload="load(); imveryhungryaudio.play();" onkeydown="buttonPress(event);">
+
+
+<div style="font-family:sans-serif; overflow: hidden">
+
+<!-- Titles -->
+<h1 id="title" style="text-align: center; font-family: Verdana; color: orange;">FEED HUNGRY PUMKIN!</h1>
+<h4 id="instructions" style="text-align: center; font-family: sans-serif; color: lime;">Click the pumkin! (Yes, <a href="http://2008.pumkin.com">pumkin</a>)</h4>
+
+<!-- Buttons -->
+<div style="text-align: center; margin: auto; font-family: sans-serif;">
+<button id="PPSDisplay" onmouseout="updatePPS()">PPS (Points Per Second): 0</button>
+</div>
+<div style="position: relative; clip: rect(0px,177px,97px,0px);" height="97" width="177" id="menuButtonsO"><div style="position: absolute; right: -200px; top: 20px; font-family: sans-serif; text-align: right" id="menuButtons">
+<button id="soundToggleButton" onclick="soundToggle()">Turn Sounds Off</button><br>
+<button id="growPumkinToggleButton" onclick="growPumkinToggle()">Stop Pumkin from Growing</button><br>
+<button id="mobileToggleButton" onclick="mobileToggle()">Anti-Lag Mode Off</button><br>
+<button id="popupToggleButton" onclick="popupToggle()">Point Popups On</button><br>
+<button id="resetPumkinSize" onclick="resetPumkinSize();">Reset Pumkin&rsquo;s Size</button><br>
+<button id="saveButton" onclick="save();">Save</button><br>
+<button id="loadButton" onclick="loadSave();">Load Save</button><br>
+<button id="clearSaveButton" onclick="clearSave();">Delete Save</button><br>
+<button id="exportSaveButton" onclick="exportSave();">Export Save</button><br>
+<button id="importSaveButton" onclick="if(confirm('WARNING: This will replace your current save!')) {document.getElementById('importSaveInput').click();}">Import Save</button><br>
+<button id="cheatButton" onclick="cheat();">Cheat</button><br>
+</div></div>
+<img id="menuOpenButton" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/VisualEditor_-_Icon_-_Menu.svg/200px-VisualEditor_-_Icon_-_Menu.svg.png" style="position: absolute; right: 0; top: 0; cursor: pointer;" onclick="openMenu()" height="64px" width="64px">
+
+<!-- Store -->
+<h3 style="color: red; float: right; position: absolute;">Store <span style="font-size:75%">(Hover over items for more info)</span></h3>
+<p id="store" style="float: right; position: absolute;">
+<br><br><span id="buyPowerclick" style="cursor: pointer;" onclick="powerclick(); updatePPS();" title="x2 Click Points
+
+Makes each click give you twice as
+many points as before.">Click here to buy a powerclick (50 points). <span style="color: magenta"> You have 0</span></span><br>
+<span id="buyGrandma" style="cursor: pointer;" onclick="grandma(); updatePPS();" title="+1 PPS
+
+She&rsquo;ll feed him for you, but she&rsquo;s
+kinda slow.">Click here to buy a grandma (100 points). <span style="color: magenta"> You have 0</span></span><br>
+<span id="buyMinWageEmp" style="cursor: pointer;" onclick="minWageEmp(); updatePPS();" title="+3 PPS
+
+He&rsquo;ll get you 5 points per second,
+but wants to be paid 2 points
+every second. He&rsquo;s basically just
+producing 3 PPS.">Click here to buy a minimum wage employee (800 points). <span style="color: magenta">You have 0</span></span><br>
+<span id="buyStartup" style="cursor: pointer;" onclick="startup(); updatePPS();" title="+5 PPS +3 Minimum Wage Employees
+
+You get the manager, a hard-working
+person, and his 3 minimum wage
+employees.">Click here to buy a startup (3500 points). <span style="color: magenta">You have 0</span></span><br>
+<span id="buyNegotiator" style="cursor: pointer;" onclick="negotiator(); updatePPS();" title="Half Hire Price
+
+This guy will negotiate with the
+new workers, halving their hire
+costs. His expertise is costly,
+though, and he won&rsquo;t negotiate with
+other negotiators.">Click here to buy a negotiator (3000 points). <span style="color: magenta"> You have 0</span></span><br>
+</p>
+
+<!-- Points Counter, Notifications and Clicker -->
+<p id="pointsCounter" style="font-size: 50px; text-align: center;">Points: 0</p>
+<div id="notifications" style="float: right; position: absolute;"></div>
+<p id="clicker" style="font-size: 75px; text-align: center;"><img id="clickerImage" src="Hungry Pumkin Face.png" style="cursor: url(cursors/" + cursorNum + ".png), auto;" onclick="clickedButton(event);" ondragstart="return false;" height="84" width="125"></p>
+
+<!-- Randomizer -->
+<div id="randomizer"><!-- 2 --></div>
+<div id="randomizer2"><!-- 1 --></div>
+
+<input id="importSaveInput" type="file" style="display: none;" onchange="importSave(document.getElementById('importSaveInput').files[0]); document.getElementById('importSaveInput').value = '';" />
+</div>
+
+
+</body>
+</html>
