@@ -16,6 +16,9 @@
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-app.js"></script>
 
+    <!-- firestore SDK -->
+    <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-firestore.js"></script>
+
     <!-- The auth Firebase JS SDK -->
     <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-auth.js"></script>
 
@@ -24,6 +27,7 @@
     <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-analytics.js"></script>
 
     <script>
+
         // Your web app's Firebase configuration
         var firebaseConfig = {
             apiKey: "AIzaSyD7nOikUnXOFZsJ9RjQV1zR6QeinZXYCnE",
@@ -38,11 +42,14 @@
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
         firebase.analytics();
+
+        // Initialize Firestore
+        var db = firebase.firestore();
     </script>
+
 
     <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
     <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
-
 
     <script>
         // Initialize the FirebaseUI Widget using Firebase.
@@ -84,6 +91,27 @@
         ui.start('#firebaseui-auth-container', uiConfig);
 
     </script>
+
+    <script>
+        // Database testing
+
+        db.collection("movies").doc("Shrek").set({
+            title: "Shrek",
+            length: 90,
+            isGood: true
+        })
+            .then(function () {
+                console.log("good")
+            })
+            .catch(function () {
+                console.log("bad")
+            });
+
+        db.collection("movies").doc("Shrek").onSnapshot(function (doc) {
+            document.getElementsByTagName('p')[0].innerHTML = doc.data().title;
+        })
+    </script>
+
 
 </head>
 <body>
