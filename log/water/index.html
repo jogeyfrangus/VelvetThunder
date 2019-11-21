@@ -1,1 +1,82 @@
-Water Log 
+<!DOCTYPE html>
+<html lang='en'>
+
+<head></head>
+
+<body>
+    <input type="text" id="waterInputValue">
+    <input type="button" id="waterInputConfirm" value="Submit Log">
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-app.js"></script>
+
+    <!-- firestore SDK -->
+    <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-firestore.js"></script>
+
+    <!-- The auth Firebase JS SDK -->
+    <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-auth.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+         https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-analytics.js"></script>
+
+    <script>
+
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyD7nOikUnXOFZsJ9RjQV1zR6QeinZXYCnE",
+            authDomain: "velvetthunder.firebaseapp.com",
+            databaseURL: "https://velvetthunder.firebaseio.com",
+            projectId: "velvetthunder",
+            storageBucket: "velvetthunder.appspot.com",
+            messagingSenderId: "331828073337",
+            appId: "1:331828073337:web:da8d442072381ba0acd5a8",
+            measurementId: "G-7VF5JQB1EW"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        firebase.analytics();
+
+        // Initialize Firestore
+        var db = firebase.firestore();
+    </script>
+
+
+    <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
+
+
+<!-- Actual code -->
+    <script>
+        let inputValue = document.getElementById("waterInputValue");
+        let inputConfirm = document.getElementById("waterInputConfirm");
+
+        function currentDate(){
+            let today = new Date();
+            let dateToday = today.getFullYear() + '-' + today.getMonth() + '-' + today.getDate();
+            return dateToday.toString();
+        }
+
+        // This is when a user inputs a new water log (new date)
+        let waterRef = db.collection("Users").doc("Joey").collection("Log").doc("Water");
+        function logCreation(date, waterInput) {
+            waterRef.set({
+                date: date,
+                log: waterInput
+            }, {merge: true})
+                .then(function () {
+                    console.log("good")
+                })
+                .catch(function () {
+                    console.log("bad")
+                });
+        }
+
+        // This is when a use inputs a new water log for an existing date
+        function logUpdate() {
+
+        }
+
+        logCreation(currentDate(), 5)
+    </script>
+</body>
