@@ -4,6 +4,8 @@
 <head></head>
 
 <body>
+    <h1>Water Logging</h1>
+    <p>Please enter your water consumed today, in litres.</p>
     <input type="text" id="waterInputValue">
     <input type="button" id="waterInputConfirm" value="Submit Log">
 
@@ -56,17 +58,14 @@
         }
 
         // This is when a user inputs a new water log (new date)
-        let waterRef = db.collection("Users").doc("Joey").collection("Log").doc("Water")
+        let waterRef = db.collection("Users").doc("Joey").collection("Log").doc("Water");
         function logCreation(date, waterInput) {
-            waterRef.set({
-                date: date,
-                log: waterInput
-            }, {merge: true})
+            waterRef.set({ [date]: waterInput }, {merge: true})
                 .then(function () {
-                    console.log("good")
+                    alert(`Successfully updated water log for ${date} to ${waterInput} litres.`)
                 })
                 .catch(function () {
-                    console.log("bad")
+                    alert("Water log unsuccessful.")
                 });
         }
 
@@ -75,6 +74,17 @@
 
         }
 
-        logCreation(currentDate(), 5)
+        function createLog() {
+            let userInput = document.getElementById("waterInputValue").value;
+            if (!isNaN(userInput)) {
+                if (confirm('Are you sure?')) {
+                    logCreation(currentDate(), Number(userInput));
+                }
+            } else {
+                alert('Not a valid number')
+            }
+        }
+
+        document.getElementById('waterInputConfirm').onclick = createLog;
     </script>
 </body>
