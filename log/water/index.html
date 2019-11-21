@@ -16,8 +16,6 @@
     <!-- The auth Firebase JS SDK -->
     <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-auth.js"></script>
 
-    <!-- TODO: Add SDKs for Firebase products that you want to use
-         https://firebase.google.com/docs/web/setup#available-libraries -->
     <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-analytics.js"></script>
 
     <script>
@@ -58,7 +56,7 @@
         }
 
         // This is when a user inputs a new water log (new date)
-        let waterRef = db.collection("Users").doc("Joey").collection("Log").doc("Water");
+        let waterRef = db.collection("Users").doc("Joey").collection("Log").doc("Water")
         function logCreation(date, waterInput) {
             waterRef.set({
                 date: date,
