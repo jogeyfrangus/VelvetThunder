@@ -48,9 +48,6 @@
 
 <!-- Actual code -->
     <script>
-        let inputValue = document.getElementById("waterInputValue");
-        let inputConfirm = document.getElementById("waterInputConfirm");
-
         function currentDate(){
             let today = new Date();
             let dateToday = today.getFullYear() + '-' + today.getMonth() + '-' + today.getDate();
@@ -69,11 +66,6 @@
                 });
         }
 
-        // This is when a use inputs a new water log for an existing date
-        function logUpdate() {
-
-        }
-
         function createLog() {
             let userInput = document.getElementById("waterInputValue").value;
             if (!isNaN(userInput)) {
@@ -81,7 +73,7 @@
                     logCreation(currentDate(), Number(userInput));
                 }
             } else {
-                alert('Not a valid number')
+                alert('Not a valid number.')
             }
         }
 

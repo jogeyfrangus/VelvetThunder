@@ -1,1 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+</head>
+
+<body>
+<input type="text" id="goalInput">
+<input type="button" id="goalInputConfirm" value="Submit Goal">
+
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-app.js"></script>
+
+<!-- firestore SDK -->
+<script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-firestore.js"></script>
+
+<!-- The auth Firebase JS SDK -->
+<script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-auth.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-analytics.js"></script>
+
+<script>
+
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+        apiKey: "AIzaSyD7nOikUnXOFZsJ9RjQV1zR6QeinZXYCnE",
+        authDomain: "velvetthunder.firebaseapp.com",
+        databaseURL: "https://velvetthunder.firebaseio.com",
+        projectId: "velvetthunder",
+        storageBucket: "velvetthunder.appspot.com",
+        messagingSenderId: "331828073337",
+        appId: "1:331828073337:web:da8d442072381ba0acd5a8",
+        measurementId: "G-7VF5JQB1EW"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+
+    // Initialize Firestore
+    var db = firebase.firestore();
+</script>
+
+
+<script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
+<link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
+
+<script>
+    let goalInput = document.getElementById("goalInput");
+    let goalInputConfirm = document.getElementById("goalInputConfirm");
+    let goalRef = db.collection("Users").doc("Joey").collection("Goals").doc("Water");
+
+    function goalCreation(date, newGoalInput) {
+        goalRef.set({ [date]: newGoalInput }, {merge: true})
+            .then(function () {
+                alert(`Successfully updated goal log for ${date} to ${waterInput} litres.`) // Successful log
+            })
+            .catch(function () {
+                alert("Goal log unsuccessful.") // Unsuccessful log
+            });
+    }
+
+    function createGoal() {
+        let userInput = goalInput.value;
+        if (!isNaN(userInput)) {
+            if (confirm('Are you sure?')) {
+                goalCreation(currentDate(), Number(userInput));
+            }
+        } else {
+            alert('Not a valid number.')
+        }
+    }
+
+    goalInputConfirm.onclick = createGoal;
+</script>
+
+</body>
+
+</html>
