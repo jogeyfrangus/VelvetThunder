@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Charts | HydroTrack</title>
+</head>
+<body>
+
+<div id="lineChart"></div>
+
+
+
+<!-- Standard Firebase Content -->
+<script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-analytics.js"></script>
+<script src="https://velvetthunder.firebaseapp.com/customFirebase.js"></script>
+<script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
+<link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
+<!-- End Standard Firebase Content -->
+
+
+<!-- Google Charts Code -->
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<script>
+    // Load google charts
+    google.charts.load('current', { 'packages': ['corechart'] });
+    google.charts.setOnLoadCallback(getWaterLog);
+
+
+    function currentDate() {
+        let today = new Date();
+        let dateToday = today.getFullYear() + '-' + today.getMonth() + '-' + today.getDate();
+        return dateToday.toString();
+    }
+
+
+    let waterRef = db.collection("Users").doc("Joey").collection("Log").doc("Water");
+
+    // Reading the information stored inside the "Water" document
+    function getWaterLog() {
+        let dailyWaterLog;
+        waterRef.get() // Grabbing the data from the document
+            .then(function (doc) {
+                console.log(doc.data());
+                dailyWaterLog = doc.data()[currentDate()];
+                drawChart(dailyWaterLog); // Drawing Google Chart based on the log information
+            })
+            .catch(function () {
+                alert("Could not get today's water log."); // If the water log cannot be loaded/no data for the day
+                dailyWaterLog = 0;
+                drawChart(dailyWaterLog);
+            })
+    }
+
+    // Draw the chart and set the chart values
+    function drawChart(water) {
+        var data = google.visualization.arrayToDataTable([
+            ['Date', 'Goal', 'Water'],
+            ['2019-11-02', 2.5, water],
+            ['2019-11-03', 2.5, water],
+            ['2019-11-04', 2.5, water],
+            ['2019-11-05', 2.5, water]
+        ]);
+
+        // Optional; add a title and set the width and height of the chart
+        var options = { 'width': 550, 'height': 400, colors: ['#A7EEF8', '#8AB2ED'],
+            animation: {duration: 1000, startup: true, easing: 'inAndOut'}};
+
+        // Display the chart inside the <div> element with id="lineChart"
+        var chart = new google.visualization.SteppedAreaChart(document.getElementById('lineChart'));
+        chart.draw(data, options);
+    }
+
+    console.log(firebase.auth().currentUser);
+
+</script>
+
+</body>
+</html>
