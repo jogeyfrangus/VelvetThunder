@@ -1,2 +1,6 @@
 .DS_Store
+<<<<<<< HEAD
 .firebase/hosting..cache
+=======
+*.cache
+>>>>>>> 4e0d30af5e5876836d0ce24cd9432b7c7b996aad
