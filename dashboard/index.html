@@ -65,27 +65,31 @@
         }
 
 
-        let waterRef = db.collection("Users").doc("Joey").collection("Log").doc("Water");
-
         // Reading the information stored inside the "Water" document
         function getWaterLog() {
-            let dailyWaterLog;
-            waterRef.get() // Grabbing the data from the document
-                .then(function (doc) {
-                    console.log(doc.data());
-                    dailyWaterLog = doc.data()[currentDate()];
-                    if (dailyWaterLog > 2.5) { // Default water value is 2.5L
-                        dailyWaterLog = 2.5;
-                    }
-                    console.log(dailyWaterLog);
-                    drawChart(dailyWaterLog); // Drawing Google Chart based on the log information
-                })
-                .catch(function () {
-                    alert("Could not get today's water log."); // If the water log cannot be loaded/no data for the day
-                    dailyWaterLog = 0;
-                    console.log(dailyWaterLog);
-                    drawChart(dailyWaterLog);
-                })
+            let waterRef;
+            try {
+                waterRef = db.collection("Users").doc("Joey").collection("Log").doc("Water");
+            } catch {
+                console.log('Current water log is empty.')
+            }
+            let dailyWaterLog = 0;
+            try {
+                waterRef.get() // Grabbing the data from the document
+                    .then(function (doc) {
+                        dailyWaterLog = doc.data()[currentDate()];
+                        if (dailyWaterLog > 2.5) { // Default water value is 2.5L
+                            dailyWaterLog = 2.5;
+                        }
+                        drawChart(dailyWaterLog); // Drawing Google Chart based on the log information
+                    })
+                    .catch(function () {
+                        alert("Could not get today's water log."); // If the water log cannot be loaded/no data for the day
+                        drawChart(dailyWaterLog);
+                    })
+            } catch {
+                drawChart(dailyWaterLog);
+            }
         }
 
         // Draw the chart and set the chart values

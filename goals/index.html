@@ -29,7 +29,7 @@
     let goalInputConfirm = document.getElementById("goalInputConfirm");
     let goalRef = db.collection("Users").doc("Joey").collection("Goals").doc("Water");
 
-    function currentDate(){
+    function currentDate() {
         let today = new Date();
         let dateToday = today.getFullYear() + '-' + today.getMonth() + '-' + today.getDate();
         return dateToday.toString();

@@ -15,3 +15,24 @@ firebase.analytics();
 
 // Initialize Firestore
 var db = firebase.firestore();
+
+// Initialize User Authentication catching
+var currentUser;
+firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+        // User is signed in.
+        var displayName = user.displayName;
+        var email = user.email;
+        var emailVerified = user.emailVerified;
+        var photoURL = user.photoURL;
+        var isAnonymous = user.isAnonymous;
+        var uid = user.uid;
+        var providerData = user.providerData;
+
+        currentUser = user;
+    } else {
+        // User is signed out.
+        alert("You're signed out!");
+        window.open('https://velvetthunder.firebase.com/login/')
+    }
+});
