@@ -27,7 +27,6 @@
 <script>
     let goalInput = document.getElementById("goalInput");
     let goalInputConfirm = document.getElementById("goalInputConfirm");
-    let goalRef = db.collection("Users").doc("Joey").collection("Goals").doc("Water");
 
     function currentDate() {
         let today = new Date();
@@ -36,6 +35,7 @@
     }
 
     function goalCreation(date, newGoalInput) {
+        let goalRef = db.collection("Users").doc(currentUser.uid).collection("Goals").doc("Water");
         goalRef.set({ [date]: newGoalInput }, {merge: true})
             .then(function () {
                 alert(`Successfully updated goal log for ${date} to ${newGoalInput} litres.`) // Successful log
