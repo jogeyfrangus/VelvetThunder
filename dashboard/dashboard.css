@@ -35,3 +35,6 @@ li a {
     border-bottom: 0.15em solid white;
     color: #414141;
 }
+#logout {
+    float: right;
+}
