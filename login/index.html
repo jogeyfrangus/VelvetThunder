@@ -17,6 +17,16 @@
         h1 {
             font-family: Verdana;
         }
+
+        #header {
+            text-align: center;
+        }
+        #logo {
+            width: 50%;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
     </style>
 
     <!-- Standard Firebase Content -->
@@ -100,7 +110,8 @@
 <body>
     <!-- The surrounding HTML is left untouched by FirebaseUI.
      Your app may use that space for branding, controls and other customizations.-->
-    <h1>Welcome to HydroTrack</h1>
+    <img src="images/Hydro%20Homies%20Logo.png" id="logo" alt="Logo">
+    <h1 id="header">Welcome to HydroTrack</h1>
     <div id="firebaseui-auth-container"></div>
     <div id="loader">Loading...</div>
 
