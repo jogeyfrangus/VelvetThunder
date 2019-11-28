@@ -77,6 +77,8 @@
                         dailyWaterLog = doc.data()[currentDate()];
                         if (dailyWaterLog > 2.5) { // Default water value is 2.5L
                             dailyWaterLog = 2.5;
+                        } else if (!dailyWaterLog) {
+                            dailyWaterLog = 0;
                         }
                         drawChart(dailyWaterLog); // Drawing Google Chart based on the log information
                     })
