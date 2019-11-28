@@ -100,7 +100,7 @@
                 }
                 let goalRef;
                 try {
-                    goalRef = db.collection("Users").doc(currentUser.uid).collection("Log").doc("Water");
+                    goalRef = db.collection("Users").doc(currentUser.uid).collection("Goals").doc("Water");
                 } catch {
                     console.log('Current water log is empty.')
                 }
