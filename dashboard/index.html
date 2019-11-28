@@ -7,156 +7,184 @@
 </head>
 
 <body>
-    <div class="dashboard-header">
-        <h1>Dashboard</h1>
-    </div>
+<div class="dashboard-header">
+    <h1>Dashboard</h1>
+</div>
 <!--        <img src="images/Hydro%20Homies%20Logo.png" id="logo">-->
-            <nav class="navbar navbar-expand-md">
-        <!--        <a class="navbar-brand" href="">Logo</a>-->
-        <!--        <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#main-navigation">-->
-        <!--            <span class="navbar-toggler-icon"></span>-->
-        <!--        </button>-->
-                <div class="collapse navbar-collapse" id="main-navigation">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link" href='../goals'>Goals</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="../log/water">Logs</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="../dashboard">Dashboard</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="../charts">Charts</a>
-                        </li>
-                        <li class="nav-item" id="logout">
-                            <a class="nav-link" href="../login">Logout</a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
+<nav class="navbar navbar-expand-md">
+    <!--        <a class="navbar-brand" href="">Logo</a>-->
+    <!--        <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#main-navigation">-->
+    <!--            <span class="navbar-toggler-icon"></span>-->
+    <!--        </button>-->
+    <div class="collapse navbar-collapse" id="main-navigation">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href='../goals'>Goals</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../log/water">Logs</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../dashboard">Dashboard</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../charts">Charts</a>
+            </li>
+            <li class="nav-item" id="logout">
+                <a class="nav-link" href="../login">Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>
 
 
 
-    <div id="piechart"></div>
+<div id="piechart"></div>
 
 
-    <!-- TODO: Add loading message? -->
+<!-- TODO: Add loading message? -->
 
 
-    <!-- Standard Firebase Content -->
-    <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-firestore.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-analytics.js"></script>
-    <script src="https://velvetthunder.firebaseapp.com/customFirebase.js"></script>
-    <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
-    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
-    <!-- End Standard Firebase Content -->
+<!-- Standard Firebase Content -->
+<script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-analytics.js"></script>
+<script src="https://velvetthunder.firebaseapp.com/customFirebase.js"></script>
+<script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
+<link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
+<!-- End Standard Firebase Content -->
 
 
-    <!-- Google Charts Code -->
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<!-- Google Charts Code -->
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
-    <script>
-        // Load google charts
-        google.charts.load('current', { 'packages': ['corechart'] });
-        google.charts.setOnLoadCallback(getWaterLog);
+<script>
+    // Load google charts
+    google.charts.load('current', { 'packages': ['corechart'] });
+    google.charts.setOnLoadCallback(getWaterLog);
 
 
-        function currentDate() {
-            let today = new Date();
-            let dateToday = today.getFullYear() + '-' + today.getMonth() + '-' + today.getDate();
-            return dateToday.toString();
+    function currentDate() {
+        let today = new Date();
+        let dateToday = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+        return dateToday.toString();
+    }
+
+    function getCurrentWater(givenDate) {
+        let waterRef;
+        try {
+            waterRef = db.collection("Users").doc(currentUser.uid).collection("Log").doc("Water");
+        } catch {
+            console.log('Current water log is empty.')
         }
+        let currentWater;
+        try {
+            waterRef.get() // Grabbing the data from the document
+                .then(function (doc) {
+                    currentWater = doc.data()[givenDate];
+                    if (currentWater > 2.5) { // Default water value is 2.5L
+                        currentWater = 2.5;
+                    } else if (!currentWater) {
+                        currentWater = 0;
+                    }
+                })
+                .catch(function () {
+                    console.log("Could not get today's water log."); // If the water log cannot be loaded/no data for the day
+                    currentWater = 0;
+                })
+        } catch {
+            console.log('Water get error');
+            currentWater = 0;
+        }
+        let checkInterval = setInterval(function() {
+            if (currentWater !== undefined) {
+                clearInterval(checkInterval);
+                return currentWater;
+            }
+        }, 50);
+    }
 
-
-        // Reading the information stored inside the "Water" document
-        function getWaterLog() {
-            setTimeout(function() {
-                let waterRef;
-                try {
-                    waterRef = db.collection("Users").doc(currentUser.uid).collection("Log").doc("Water");
-                } catch {
-                    console.log('Current water log is empty.')
-                }
-                let dailyWaterLog = 0;
-                try {
-                    waterRef.get() // Grabbing the data from the document
-                        .then(function (doc) {
-                            dailyWaterLog = doc.data()[currentDate()];
-                            if (dailyWaterLog > 2.5) { // Default water value is 2.5L
-                                dailyWaterLog = 2.5;
-                            } else if (!dailyWaterLog) {
-                                dailyWaterLog = 0;
+    function getCurrentWaterGoal(givenDate) {
+        let goalRef;
+        try {
+            goalRef = db.collection("Users").doc(currentUser.uid).collection("Goals").doc("Water");
+        } catch {
+            console.log('Current water log is empty.')
+        }
+        let waterGoal;  // No default value set, so that the code can check when the computation finishes
+        try {
+            goalRef.get() // Grabbing the data from the document
+                .then(function (doc) {
+                    waterGoal = doc.data()[givenDate];  // Get the goal for the requested date (this used to be ...[currentDate()])
+                    if (waterGoal !== 0) {
+                        if (!waterGoal) {
+                            let waterGoalDates = Object.keys(doc.data());  // Get all dates for water goals (object keys)
+                            waterGoalDates.sort(function(a, b){return b - a});  // Sort the dates in descending order
+                            while (waterGoalDates[0] > givenDate) {  // Remove largest (newest) date until the given date is reached
+                                waterGoalDates.shift();  // removes first-index item
                             }
-                        })
-                        .catch(function () {
-                            console.log("Could not get today's water log."); // If the water log cannot be loaded/no data for the day
-                        })
-                } catch {
-                    console.log('Water get error')
-                }
-                let goalRef;
-                try {
-                    goalRef = db.collection("Users").doc(currentUser.uid).collection("Goals").doc("Water");
-                } catch {
-                    console.log('Current water log is empty.')
-                }
-                let currentWaterGoal = 2.5;
-                try {
-                    goalRef.get() // Grabbing the data from the document
-                        .then(function (doc) {
-                            currentWaterGoal = doc.data()[currentDate()];
-                            if (currentWaterGoal !== 0) {
-                                if (!currentWaterGoal) {
-                                    let waterGoalDates = doc.data().keys();
-                                    waterGoalDates.sort(function(a, b){return b - a});
-                                    try {
-                                        currentWaterGoal = doc.data()[waterGoalDates[0]];
-                                    } catch {
-                                        console.log("Error: No water goals found!")
-                                    }
-                                }
+                            try {
+                                waterGoal = doc.data()[waterGoalDates[0]];  // Set the goal to the most recent goal
+                            } catch {
+                                console.log("Error: No water goals found!");
+                                waterGoal = 2.5;  // default value set here so that the code knows that the computation is done
                             }
-                        })
-                        .catch(function () {
-                            console.log("Could not get current goal."); // If the water log cannot be loaded/no data for the day
-                        })
-                } catch {
-                    console.log('Goal get error')
-                }
-                setTimeout(function() { drawChart(dailyWaterLog, currentWaterGoal) }, 500);
-            }, 1000);
+                        }
+                    }
+                })
+                .catch(function () {
+                    console.log("Could not get current goal."); // If the water log cannot be loaded/no data for the day
+                    waterGoal = 2.5;  // default value set here so that the code knows that the computation is done
+                })
+        } catch {
+            console.log('Goal get error');
+            waterGoal = 2.5;  // default value set here so that the code knows that the computation is done
         }
+        let checkInterval = setInterval(function() {  // wait until computation is done to return the value
+            if (waterGoal !== undefined) {
+                clearInterval(checkInterval);
+                console.log('The current goal is ' + String(waterGoal) + 'L');  // temporary, for debugging
+                return waterGoal;
+            }
+        }, 50);
+    }
 
-        // Draw the chart and set the chart values
-        function drawChart(water, waterGoal) {
-            var data = google.visualization.arrayToDataTable([
-                ['Daily Log', 'Litres'],
-                ['Water Consumed', water],
-                ['Remaining Goal', waterGoal - water]
-            ]);
+    // Reading the information stored inside the "Water" document
+    function getWaterLog() {
+        setTimeout(function() {
+            let dailyWaterLog = getCurrentWater(currentDate());
+            let currentWaterGoal = getCurrentWaterGoal(currentDate());
+            setTimeout(function() { drawChart(dailyWaterLog, currentWaterGoal); }, 1000);  // TODO: Somehow, here, currentWaterGoal is undefined?
+        }, 1000);
+    }
 
-            // Optional; add a title and set the width and height of the chart
-            var options = {
-                chartArea: {
-                    width: '40%',
-                },
-                legend: {
-                    alignment: 'center',
-                    position: 'top',
-                },
-                colors: ['#A7EEF8', '#8AB2ED']
-            };
+    // Draw the chart and set the chart values
+    function drawChart(water, waterGoal) {
+        var data = google.visualization.arrayToDataTable([
+            ['Daily Log', 'Litres'],
+            ['Water Consumed', water],
+            ['Remaining Goal', waterGoal - water]
+        ]);
 
-            // Display the chart inside the <div> element with id="piechart"
-            var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-            chart.draw(data, options);
-        }
+        // Optional; add a title and set the width and height of the chart
+        var options = {
+            chartArea: {
+                width: '40%',
+            },
+            legend: {
+                alignment: 'center',
+                position: 'top',
+            },
+            colors: ['#A7EEF8', '#8AB2ED']
+        };
 
-    </script>
+        // Display the chart inside the <div> element with id="piechart"
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+        chart.draw(data, options);
+    }
+
+</script>
 </body>
 
 </html>
