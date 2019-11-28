@@ -67,79 +67,67 @@
 
         function currentDate() {
             let today = new Date();
-            let dateToday = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+            let dateToday = today.getFullYear() + '-' + today.getMonth() + '-' + today.getDate();
             return dateToday.toString();
         }
 
-        function getCurrentWater() {
-            let waterRef;
-            try {
-                waterRef = db.collection("Users").doc(currentUser.uid).collection("Log").doc("Water");
-            } catch {
-                console.log('Current water log is empty.')
-            }
-            let currentWater = 0;
-            try {
-                waterRef.get() // Grabbing the data from the document
-                    .then(function (doc) {
-                        currentWater = doc.data()[currentDate()];
-                        if (currentWater > 2.5) { // Default water value is 2.5L
-                            currentWater = 2.5;
-                        } else if (!currentWater) {
-                            currentWater = 0;
-                        }
-                    })
-                    .catch(function () {
-                        console.log("Could not get today's water log."); // If the water log cannot be loaded/no data for the day
-                    })
-            } catch {
-                console.log('Water get error')
-            }
-            return currentWater
-        }
-
-        function getCurrentWaterGoal(givenDate) {
-            let goalRef;
-            try {
-                goalRef = db.collection("Users").doc(currentUser.uid).collection("Goals").doc("Water");
-            } catch {
-                console.log('Current water log is empty.')
-            }
-            let waterGoal = 2.5;
-            try {
-                goalRef.get() // Grabbing the data from the document
-                    .then(function (doc) {
-                        waterGoal = doc.data()[givenDate];
-                        if (waterGoal !== 0) {
-                            if (!waterGoal) {
-                                let waterGoalDates = Object.keys(doc.data());
-                                waterGoalDates.sort(function(a, b){return b - a});
-                                while (waterGoalDates[0] < givenDate) {
-                                    waterGoalDates.shift();
-                                }
-                                try {
-                                    waterGoal = doc.data()[waterGoalDates[0]];
-                                } catch {
-                                    console.log("Error: No water goals found!")
-                                }
-                            }
-                        }
-                    })
-                    .catch(function () {
-                        console.log("Could not get current goal."); // If the water log cannot be loaded/no data for the day
-                    })
-            } catch {
-                console.log('Goal get error')
-            }
-            return waterGoal
-        }
 
         // Reading the information stored inside the "Water" document
         function getWaterLog() {
             setTimeout(function() {
-                let dailyWaterLog = getCurrentWater();
-                let currentWaterGoal = getCurrentWaterGoal();
-                setTimeout(function() { drawChart(dailyWaterLog, currentWaterGoal) }, 1000);
+                let waterRef;
+                try {
+                    waterRef = db.collection("Users").doc(currentUser.uid).collection("Log").doc("Water");
+                } catch {
+                    console.log('Current water log is empty.')
+                }
+                let dailyWaterLog = 0;
+                try {
+                    waterRef.get() // Grabbing the data from the document
+                        .then(function (doc) {
+                            dailyWaterLog = doc.data()[currentDate()];
+                            if (dailyWaterLog > 2.5) { // Default water value is 2.5L
+                                dailyWaterLog = 2.5;
+                            } else if (!dailyWaterLog) {
+                                dailyWaterLog = 0;
+                            }
+                        })
+                        .catch(function () {
+                            console.log("Could not get today's water log."); // If the water log cannot be loaded/no data for the day
+                        })
+                } catch {
+                    console.log('Water get error')
+                }
+                let goalRef;
+                try {
+                    goalRef = db.collection("Users").doc(currentUser.uid).collection("Goals").doc("Water");
+                } catch {
+                    console.log('Current water log is empty.')
+                }
+                let currentWaterGoal = 2.5;
+                try {
+                    goalRef.get() // Grabbing the data from the document
+                        .then(function (doc) {
+                            currentWaterGoal = doc.data()[currentDate()];
+                            if (currentWaterGoal !== 0) {
+                                if (!currentWaterGoal) {
+                                    let waterGoalDates = doc.data().keys();
+                                    waterGoalDates.sort(function(a, b){return b - a});
+                                    try {
+                                        currentWaterGoal = doc.data()[waterGoalDates[0]];
+                                    } catch {
+                                        console.log("Error: No water goals found!")
+                                    }
+                                }
+                            }
+                        })
+                        .catch(function () {
+                            console.log("Could not get current goal."); // If the water log cannot be loaded/no data for the day
+                        })
+                } catch {
+                    console.log('Goal get error')
+                }
+                setTimeout(function() { drawChart(dailyWaterLog, currentWaterGoal) }, 500);
             }, 1000);
         }
 
