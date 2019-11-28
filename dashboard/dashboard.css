@@ -22,6 +22,24 @@ li a {
     background-color: rgba(0, 191, 255, 0.33);
 }
 
+@media only screen and (max-width: 464px) {
+    .navbar-nav {
+        font-size: 100%;
+        }
+}
+
+@media only screen and (max-width: 400px) {
+    .navbar-nav {
+        font-size: 90%;
+    }
+}
+
+@media only screen and (max-width: 342px) {
+    .navbar-nav {
+        font-size: 80%;
+    }
+}
+
 #logout {
     float: right;
 }
