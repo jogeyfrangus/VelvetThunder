@@ -30,7 +30,7 @@
 
     function currentDate() {
         let today = new Date();
-        let dateToday = today.getFullYear() + '-' + today.getMonth() + '-' + today.getDate();
+        let dateToday = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
         return dateToday.toString();
     }
 
