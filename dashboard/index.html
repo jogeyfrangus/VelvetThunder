@@ -144,7 +144,7 @@
             console.log('Goal get error');
             waterGoal = 2.5;  // default value set here so that the code knows that the computation is done
         }
-        let tempPromise = new Promise(function(resolve, reject) {
+        let tempPromise = new Promise(function(resolve, reject) {  // Create a temporary promise that only resolves when waterGoal is defined
             let checkInterval = setInterval(function() {
                 if (waterGoal !== undefined) {
                     clearInterval(checkInterval);
@@ -182,7 +182,6 @@
                     drawChart(dailyWaterLog, currentWaterGoal);
                 }
             }, 50);
-            // setTimeout(function() { drawChart(dailyWaterLog, currentWaterGoal); }, 1000);  // TODO: Somehow, here, currentWaterGoal is undefined?
         }, 1000);
     }
 
