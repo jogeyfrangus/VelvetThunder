@@ -97,12 +97,15 @@
             console.log('Water get error');
             currentWater = 0;
         }
-        let checkInterval = setInterval(function() {
-            if (currentWater !== undefined) {
-                clearInterval(checkInterval);
-                return currentWater;
-            }
-        }, 50);
+        let tempPromise = new Promise(function(resolve, reject) {
+            let checkInterval = setInterval(function() {
+                if (currentWater !== undefined) {
+                    clearInterval(checkInterval);
+                    resolve(currentWater);
+                }
+            }, 50);
+        });
+        return tempPromise
     }
 
     function getCurrentWaterGoal(givenDate) {
@@ -141,21 +144,45 @@
             console.log('Goal get error');
             waterGoal = 2.5;  // default value set here so that the code knows that the computation is done
         }
-        let checkInterval = setInterval(function() {  // wait until computation is done to return the value
-            if (waterGoal !== undefined) {
-                clearInterval(checkInterval);
-                console.log('The current goal is ' + String(waterGoal) + 'L');  // temporary, for debugging
-                return waterGoal;
-            }
-        }, 50);
+        let tempPromise = new Promise(function(resolve, reject) {
+            let checkInterval = setInterval(function() {
+                if (waterGoal !== undefined) {
+                    clearInterval(checkInterval);
+                    console.log('The current goal is ' + String(waterGoal) + 'L');  // temporary, for debugging
+                    resolve(waterGoal);
+                }
+            }, 50);
+        });
+        return tempPromise
     }
 
     // Reading the information stored inside the "Water" document
     function getWaterLog() {
         setTimeout(function() {
-            let dailyWaterLog = getCurrentWater(currentDate());
-            let currentWaterGoal = getCurrentWaterGoal(currentDate());
-            setTimeout(function() { drawChart(dailyWaterLog, currentWaterGoal); }, 1000);  // TODO: Somehow, here, currentWaterGoal is undefined?
+            let dailyWaterLogPromise = getCurrentWater(currentDate());
+            let currentWaterGoalPromise = getCurrentWaterGoal(currentDate());
+            let dailyWaterLog;
+            let currentWaterGoal;
+            dailyWaterLogPromise.then(function(waterOutput) {
+                    dailyWaterLog = waterOutput;
+            }
+            ).catch(function() {
+                console.log('Error: dailyWaterLogPromise not fulfilled')
+            });
+            currentWaterGoalPromise.then(function(waterGoalOutput) {
+                    currentWaterGoal = waterGoalOutput;
+                }
+            ).catch(function() {
+                console.log('Error: currentWaterGoalPromise not fulfilled')
+            });
+            let checkInterval = setInterval(function() {
+                if (dailyWaterLog !== undefined && currentWaterGoal !== undefined) {
+                    clearInterval(checkInterval);
+                    console.log('Drawing chart...');  // temporary, for debugging
+                    drawChart(dailyWaterLog, currentWaterGoal);
+                }
+            }, 50);
+            // setTimeout(function() { drawChart(dailyWaterLog, currentWaterGoal); }, 1000);  // TODO: Somehow, here, currentWaterGoal is undefined?
         }, 1000);
     }
 
