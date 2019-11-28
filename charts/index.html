@@ -131,8 +131,14 @@
                 var data = google.visualization.arrayToDataTable(customChartData);
 
                 // Optional; add a title and set the width and height of the chart
-                var options = { 'width': 550, 'height': 400, colors: ['#A7EEF8', '#8AB2ED'],
-                    animation: {duration: 1000, startup: true, easing: 'inAndOut'}};
+                var options = {
+                    chartArea: {
+                        width: '100%',
+                    },
+                    colors: ['#A7EEF8', '#8AB2ED'],
+                    animation: {duration: 1000,
+                        startup: true,
+                        easing: 'inAndOut'}};
 
                 // Display the chart inside the <div> element with id="lineChart"
                 var chart = new google.visualization.SteppedAreaChart(document.getElementById('lineChart'));
