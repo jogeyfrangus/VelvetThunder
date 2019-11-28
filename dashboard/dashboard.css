@@ -1,3 +1,6 @@
+body {
+    overflow-x: hidden;
+}
 li {
     float: left;
     border-right: 0.07em solid white;
@@ -55,5 +58,15 @@ li a {
     background-color: cornflowerblue;
     font-family: "Verdana";
     border-bottom: 0.15em solid white;
+    color: #414141;
+}
+#piechart {
+    transform: translateY(32.5%) scale(1.8, 1.8);
+    overflow-x: hidden;
+}
+#today {
+    transform: translateX(0.5%);
+    text-align: center;
+    font-family: Verdana;
     color: #414141;
 }
