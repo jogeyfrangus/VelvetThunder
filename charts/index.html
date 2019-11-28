@@ -37,8 +37,6 @@
     }
 
 
-    let waterRef = db.collection("Users").doc(currentUser.uid).collection("Log").doc("Water");
-
     // Reading the information stored inside the "Water" document
     function getWaterLog() {
         setTimeout(function() {
@@ -69,7 +67,7 @@
             try {
                 goalRef = db.collection("Users").doc(currentUser.uid).collection("Log").doc("Water");
             } catch {
-                console.log('Current water log is empty.')
+                console.log('Current goal log is empty.')
             }
     });
 
@@ -104,7 +102,7 @@
         })
     }
 
-    displayChartInfoWater("Log");
+
     console.log(firebase.auth().currentUser); }
 
 </script>
