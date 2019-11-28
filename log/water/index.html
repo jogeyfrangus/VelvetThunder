@@ -33,8 +33,8 @@
         }
 
         // This is when a user inputs a new water log (new date)
-        let waterRef = db.collection("Users").doc(currentUser.uid).collection("Log").doc("Water");
         function logCreation(date, waterInput) {
+            let waterRef = db.collection("Users").doc(currentUser.uid).collection("Log").doc("Water");
             waterRef.set({ [date]: waterInput }, {merge: true}) // Logging the date as the key and the inputted water as the value
                 .then(function () {
                     alert(`Successfully updated water log for ${date} to ${waterInput} litres.`) // Successful log
