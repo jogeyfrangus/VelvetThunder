@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Loading...</title>
 </head>
-<body onload="loaded()">
+<body>
 <h1>Loading...</h1>
 <p>We are currently redirecting you to the appropriate page.</p>
 <p>You can also go directly to the <a href="https://velvetthunder.firebaseapp.com/login/">login page</a> or, if you're
@@ -21,13 +21,13 @@
 <!-- End Standard Firebase Content -->
 
 <script>
-    function loaded() {
+    setTimeout(function() {
         if (currentUser) {
             window.open('https://velvetthunder.firebaseapp.com/dashboard/', '_self');
         } else {
             window.open('https://velvetthunder.firebaseapp.com/login/', '_self');
         }
-    }
+    }, 2000);
 </script>
 
 </body>
