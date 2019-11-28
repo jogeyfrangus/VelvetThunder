@@ -31,6 +31,8 @@ firebase.auth().onAuthStateChanged(function(user) {
 
         currentUser = user;
 
+        console.log(currentUser);
+
         if (!db.collection("Users").doc(currentUser.uid)) {
             db.collection("Users").doc(currentUser.uid).set(currentUser, {merge: true})
                 .then(function () {
