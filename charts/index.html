@@ -101,28 +101,44 @@
             // } catch {
             //     console.log('Current goal log is empty.')
             // }
-            drawChart("2019-11-25", "2019-11-28")
+            drawChart("2019-11-20", "2019-11-28")
         }, 1500);
     }
 
     // Draw the chart and set the chart values
     function drawChart(initial, final) {
         let allDates = getDatesInRange(initial, final);
-        var data = google.visualization.arrayToDataTable([
-            ['Date', 'Goal', 'Water'],
-            ['2019-11-02', getCurrentWaterGoal(allDates[0]), getCurrentWater(allDates[0])],
-            ['2019-11-03', getCurrentWaterGoal(allDates[1]), getCurrentWater(allDates[1])],
-            ['2019-11-04', getCurrentWaterGoal(allDates[2]), getCurrentWater(allDates[2])],
-            ['2019-11-05', getCurrentWaterGoal(allDates[3]), getCurrentWater(allDates[3])]
-        ]);
+        let goals = [];
+        let logs = [];
+        for (let i = 0; i < allDates.length; i++) {
+            getCurrentWaterGoal(allDates[i]).then(function(value) {
+                goals[i] = Number(value);
+            });
+            getCurrentWater(allDates[i]).then(function(value) {
+                logs[i] = Number(value);
+            });
+        }
+        let checkInterval = setInterval(function() {
+            if (logs.length === allDates.length && goals.length === allDates.length) {
+                clearInterval(checkInterval);
+                console.log('Drawing chart...');  // temporary, for debugging
 
-        // Optional; add a title and set the width and height of the chart
-        var options = { 'width': 550, 'height': 400, colors: ['#A7EEF8', '#8AB2ED'],
-            animation: {duration: 1000, startup: true, easing: 'inAndOut'}};
+                let customChartData = [['Date', 'Goal', 'Water']];
+                for (let i = 0; i < allDates.length; i++) {
+                    customChartData.push([allDates[i], goals[i], logs[i]]);
+                }
 
-        // Display the chart inside the <div> element with id="lineChart"
-        var chart = new google.visualization.SteppedAreaChart(document.getElementById('lineChart'));
-        chart.draw(data, options);
+                var data = google.visualization.arrayToDataTable(customChartData);
+
+                // Optional; add a title and set the width and height of the chart
+                var options = { 'width': 550, 'height': 400, colors: ['#A7EEF8', '#8AB2ED'],
+                    animation: {duration: 1000, startup: true, easing: 'inAndOut'}};
+
+                // Display the chart inside the <div> element with id="lineChart"
+                var chart = new google.visualization.SteppedAreaChart(document.getElementById('lineChart'));
+                chart.draw(data, options);
+            }
+        }, 50);
     }
 
     // Display the chart information in text
