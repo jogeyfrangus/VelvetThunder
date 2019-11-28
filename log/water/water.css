@@ -1,0 +1,27 @@
+li {
+    float: left;
+    border-right: 0.07em solid white;
+}
+li a {
+    display: block;
+    text-decoration: none;
+    padding: 0.5em;
+    color: #414141;
+    text-align: center;
+}
+.navbar-nav {
+    list-style-type: none;
+    font-family: "Verdana";
+    font-size: 120%;
+    background-color: lightskyblue;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+.nav-link:hover {
+    background-color: rgba(0, 191, 255, 0.33);
+}
+
+#logout {
+    float: right;
+}
