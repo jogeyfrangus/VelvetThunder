@@ -4,6 +4,7 @@
 <head>
     <title>Dashboard</title>
     <link rel="stylesheet" href="dashboard.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -197,7 +198,7 @@
         // Optional; add a title and set the width and height of the chart
         var options = {
             chartArea: {
-                width: '40%',
+                width: '100%',
             },
             legend: {
                 alignment: 'center',
@@ -206,9 +207,20 @@
             colors: ['#A7EEF8', '#8AB2ED']
         };
 
+        // Redraw chart based on size of window
+        $(window).resize(function () {
+            if(this.resizeTO) clearTimeout(this.resizeTO);
+            this.resizeTO = setTimeout(function () {
+                $(this).trigger('resizeEnd');
+            }, 500)
+        });
         // Display the chart inside the <div> element with id="piechart"
         var chart = new google.visualization.PieChart(document.getElementById('piechart'));
         chart.draw(data, options);
+        $(window).on('resizeEnd', function () {
+            chart.draw(data, options);
+        });
+
     }
 
 </script>

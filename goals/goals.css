@@ -25,3 +25,11 @@ li a {
 #logout {
     float: right;
 }
+.goals-header {
+    text-align: center;
+    padding: 0.1%;
+    background-color: cornflowerblue;
+    font-family: "Verdana";
+    border-bottom: 0.15em solid white;
+    color: #414141;
+}
