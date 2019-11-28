@@ -30,6 +30,18 @@ firebase.auth().onAuthStateChanged(function(user) {
         var providerData = user.providerData;
 
         currentUser = user;
+
+        console.log(currentUser);
+
+        if (!db.collection("Users").doc(currentUser.uid)) {
+            db.collection("Users").doc(currentUser.uid).set(currentUser, {merge: true})
+                .then(function () {
+                    console.log("Successfully initiated user info on Firebase.")
+                })
+                .catch(function () {
+                    console.log("Error while initiating user info on Firebase.")
+                });
+        }
     } else {
         // User is signed out.
         alert("You're signed out!");
