@@ -35,7 +35,7 @@
     function goalCreation(date, newGoalInput) {
         goalRef.set({ [date]: newGoalInput }, {merge: true})
             .then(function () {
-                alert(`Successfully updated goal log for ${date} to ${waterInput} litres.`) // Successful log
+                alert(`Successfully updated goal log for ${date} to ${newGoalInput} litres.`) // Successful log
             })
             .catch(function () {
                 alert("Goal log unsuccessful.") // Unsuccessful log
