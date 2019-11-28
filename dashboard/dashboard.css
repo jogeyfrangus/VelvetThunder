@@ -32,5 +32,6 @@ li a {
     padding: 0.1%;
     background-color: cornflowerblue;
     font-family: "Verdana";
-
+    border-bottom: 0.15em solid white;
+    color: #414141;
 }
