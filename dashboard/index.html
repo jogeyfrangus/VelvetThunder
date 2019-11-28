@@ -7,36 +7,39 @@
 </head>
 
 <body>
-<img src="images/Hydro%20Homies%20Logo.png" id="logo">
-    <nav class="navbar navbar-expand-md">
-<!--        <a class="navbar-brand" href="">Logo</a>-->
-        <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#main-navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="main-navigation">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href='../goals'>Goals</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="../log/water">Logs</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="../dashboard">Dashboard</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="../charts">Charts</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
+    <div class="dashboard-header">
+        <h1>Dashboard</h1>
+    </div>
+<!--        <img src="images/Hydro%20Homies%20Logo.png" id="logo">-->
+            <nav class="navbar navbar-expand-md">
+        <!--        <a class="navbar-brand" href="">Logo</a>-->
+        <!--        <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#main-navigation">-->
+        <!--            <span class="navbar-toggler-icon"></span>-->
+        <!--        </button>-->
+                <div class="collapse navbar-collapse" id="main-navigation">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href='../goals'>Goals</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../log/water">Logs</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../dashboard">Dashboard</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../charts">Charts</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
 
 
 
     <div id="piechart"></div>
 
 
-
+    <!-- TODO: Add loading message? -->
 
 
     <!-- Standard Firebase Content -->
@@ -85,33 +88,70 @@
                             } else if (!dailyWaterLog) {
                                 dailyWaterLog = 0;
                             }
-                            drawChart(dailyWaterLog); // Drawing Google Chart based on the log information
                         })
                         .catch(function () {
                             alert("Could not get today's water log."); // If the water log cannot be loaded/no data for the day
-                            drawChart(dailyWaterLog);
                         })
                 } catch {
-                    drawChart(dailyWaterLog);
+                    console.log('Water get error')
                 }
+                let goalRef;
+                try {
+                    goalRef = db.collection("Users").doc(currentUser.uid).collection("Log").doc("Water");
+                } catch {
+                    console.log('Current water log is empty.')
+                }
+                let currentWaterGoal = 2.5;
+                try {
+                    goalRef.get() // Grabbing the data from the document
+                        .then(function (doc) {
+                            currentWaterGoal = doc.data()[currentDate()];
+                            if (currentWaterGoal !== 0) {
+                                if (!currentWaterGoal) {
+                                    let waterGoalDates = doc.data().keys();
+                                    waterGoalDates.sort(function(a, b){return b - a});
+                                    try {
+                                        currentWaterGoal = doc.data()[waterGoalDates[0]];
+                                    } catch {
+                                        console.log("Error: No water goals found!")
+                                    }
+                                }
+                            }
+                        })
+                        .catch(function () {
+                            alert("Could not get current goal."); // If the water log cannot be loaded/no data for the day
+                        })
+                } catch {
+                    console.log('Goal get error')
+                }
+                setTimeout(function() { drawChart(dailyWaterLog, currentWaterGoal) }, 500);
             }, 1000);
         }
 
         // Draw the chart and set the chart values
-        function drawChart(water) {
+        function drawChart(water, waterGoal) {
             var data = google.visualization.arrayToDataTable([
                 ['Daily Log', 'Litres'],
                 ['Water Consumed', water],
-                ['Remaining Goal', 2.5 - water]
+                ['Remaining Goal', waterGoal - water]
             ]);
 
             // Optional; add a title and set the width and height of the chart
-            var options = { 'width': 550, 'height': 400 };
+            var options = {
+                chartArea: {
+                    width: '40%',
+                },
+                legend: {
+                    alignment: 'center',
+                    position: 'top',
+                }
+            };
 
             // Display the chart inside the <div> element with id="piechart"
             var chart = new google.visualization.PieChart(document.getElementById('piechart'));
             chart.draw(data, options);
         }
+
     </script>
 </body>
 
