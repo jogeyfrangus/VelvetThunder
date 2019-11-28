@@ -7,7 +7,7 @@
 <body>
 
 <div id="lineChart"></div>
-
+<div id="infoText"></div>
 
 
 <!-- Standard Firebase Content -->
@@ -93,10 +93,18 @@
     }
 
     // Display the chart information in text
-    function displayChartInfo() {
-        
+    function displayChartInfoWater(category) {
+        let waterRef = db.collection(category).get().then(function (querySnapshot) {
+            querySnapshot.forEach(function (doc) {
+                let displayedInfo = document.createElement('p');
+                document.getElementById('infoText').appendChild(displayedInfo);
+                let infoNode = document.createTextNode(doc.data().name);
+                displayedInfo.appendChild(infoNode);
+            })
+        })
     }
 
+    displayChartInfoWater("Log");
     console.log(firebase.auth().currentUser); }
 
 </script>
