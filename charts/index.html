@@ -70,7 +70,7 @@
 
     // Reading the information stored inside the "Water" document
     function getWaterLog() {
-        setTimeout(function() {
+        setTimeout(function () {
             let waterRef;
             try {
                 waterRef = db.collection("Users").doc(currentUser.uid).collection("Log").doc("Water");
@@ -100,7 +100,8 @@
             } catch {
                 console.log('Current goal log is empty.')
             }
-    });
+        });
+    }
 
     // Draw the chart and set the chart values
     function drawChart(water) {
@@ -135,7 +136,7 @@
 
 
     displayChartInfoWater('Logs');
-    console.log(firebase.auth().currentUser); }
+    console.log(firebase.auth().currentUser);
 
     function getDatesInRange(start, end) {  // Start and end are properly formatted dates, with start being less than end
         let dates = [start];
