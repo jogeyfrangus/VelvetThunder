@@ -22,10 +22,6 @@ li a {
     background-color: rgba(0, 191, 255, 0.33);
 }
 
-#logout {
-    float: right;
-}
-
 #logo {
     width: 30%;
     float:right;
@@ -38,4 +34,7 @@ li a {
     font-family: "Verdana";
     border-bottom: 0.15em solid white;
     color: #414141;
+}
+#logout {
+    float: right;
 }

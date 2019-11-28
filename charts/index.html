@@ -3,37 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Charts | HydroTrack</title>
-    <link rel="stylesheet" href="charts.css">
 </head>
 <body>
 
 <div id="lineChart"></div>
-<div id="infoText"></div>
-<nav class="navbar navbar-expand-md">
-    <!--        <a class="navbar-brand" href="">Logo</a>-->
-<!--    <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#main-navigation">-->
-<!--        <span class="navbar-toggler-icon"></span>-->
-<!--    </button>-->
-    <div class="collapse navbar-collapse" id="main-navigation">
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" href='../goals'>Goals</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="../log/water">Logs</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="../dashboard">Dashboard</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="../charts">Charts</a>
-            </li>
-            <li class="nav-item" id="logout">
-                <a class="nav-link" href="../login">Logout</a>
-            </li>
-        </ul>
-    </div>
-</nav>
+
+
 
 <!-- Standard Firebase Content -->
 <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-app.js"></script>
@@ -61,6 +36,8 @@
         return dateToday.toString();
     }
 
+
+    let waterRef = db.collection("Users").doc(currentUser.uid).collection("Log").doc("Water");
 
     // Reading the information stored inside the "Water" document
     function getWaterLog() {
@@ -92,7 +69,7 @@
             try {
                 goalRef = db.collection("Users").doc(currentUser.uid).collection("Log").doc("Water");
             } catch {
-                console.log('Current goal log is empty.')
+                console.log('Current water log is empty.')
             }
     });
 
@@ -115,18 +92,9 @@
         chart.draw(data, options);
     }
 
-    // Display the chart information in text
-    function displayChartInfoWater(category) {
-        let waterRef = db.collection(category).get().then(function (querySnapshot) {
-            querySnapshot.forEach(function (doc) {
-                let displayedInfo = document.createElement('p');
-                document.getElementById('infoText').appendChild(displayedInfo);
-                let infoNode = document.createTextNode(doc.data().name);
-                displayedInfo.appendChild(infoNode);
-            })
-        })
+    function displayChartInfo() {
+        
     }
-
 
     console.log(firebase.auth().currentUser); }
 
