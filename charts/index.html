@@ -7,8 +7,6 @@
 </head>
 <body>
 
-<div id="lineChart"></div>
-<div id="infoText"></div>
 <nav class="navbar navbar-expand-md">
     <!--        <a class="navbar-brand" href="">Logo</a>-->
 <!--    <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#main-navigation">-->
@@ -34,6 +32,12 @@
         </ul>
     </div>
 </nav>
+
+<!--Displaying info through graph-->
+<div id="lineChart"></div>
+
+<!--Displaying info through text-->
+<div id="infoText"></div>
 
 <!-- Standard Firebase Content -->
 <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-app.js"></script>
@@ -128,6 +132,7 @@
     }
 
 
+    displayChartInfoWater('Logs');
     console.log(firebase.auth().currentUser); }
 
 </script>
