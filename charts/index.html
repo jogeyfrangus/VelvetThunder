@@ -41,6 +41,10 @@
 <!--Displaying info through text-->
 <div id="infoText"></div>
 
+<input id="initialDate" type="date" value="2019-11-20" />
+<input id="finalDate" type="date" value="2019-11-28" />
+<button id="updateButton" onclick="drawChart()">Update Chart</button>
+
 <!-- Standard Firebase Content -->
 <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-firestore.js"></script>
@@ -101,12 +105,14 @@
             // } catch {
             //     console.log('Current goal log is empty.')
             // }
-            drawChart("2019-11-20", "2019-11-28")
+            drawChart()
         }, 1500);
     }
 
     // Draw the chart and set the chart values
-    function drawChart(initial, final) {
+    function drawChart() {
+        let initial = document.getElementById('initialDate').value;
+        let final = document.getElementById('finalDate').value;
         let allDates = getDatesInRange(initial, final);
         let goals = [];
         let logs = [];
