@@ -51,6 +51,7 @@
 <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
 <!-- End Standard Firebase Content -->
 
+<script src="getLogsAndGoals.js"></script>
 
 <!-- Google Charts Code -->
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -70,55 +71,74 @@
 
     // Reading the information stored inside the "Water" document
     function getWaterLog() {
-        setTimeout(function() {
-            let waterRef;
-            try {
-                waterRef = db.collection("Users").doc(currentUser.uid).collection("Log").doc("Water");
-            } catch {
-                console.log('Current water log is empty.')
-            }
-            let dailyWaterLog = 0;
-            try {
-                waterRef.get() // Grabbing the data from the document
-                    .then(function (doc) {
-                        dailyWaterLog = doc.data()[currentDate()];
-                        if (dailyWaterLog > 2.5) { // Default water value is 2.5L
-                            dailyWaterLog = 2.5;
-                        } else if (!dailyWaterLog) {
-                            dailyWaterLog = 0;
-                        }
-                    })
-                    .catch(function () {
-                        alert("Could not get today's water log."); // If the water log cannot be loaded/no data for the day
-                    })
-            } catch {
-                console.log('Water get error')
-            }
-            let goalRef;
-            try {
-                goalRef = db.collection("Users").doc(currentUser.uid).collection("Log").doc("Water");
-            } catch {
-                console.log('Current goal log is empty.')
-            }
-    });
+        setTimeout(function () {
+            // let waterRef;
+            // try {
+            //     waterRef = db.collection("Users").doc(currentUser.uid).collection("Log").doc("Water");
+            // } catch {
+            //     console.log('Current water log is empty.')
+            // }
+            // let dailyWaterLog = 0;
+            // try {
+            //     waterRef.get() // Grabbing the data from the document
+            //         .then(function (doc) {
+            //             dailyWaterLog = doc.data()[currentDate()];
+            //             if (dailyWaterLog > 2.5) { // Default water value is 2.5L
+            //                 dailyWaterLog = 2.5;
+            //             } else if (!dailyWaterLog) {
+            //                 dailyWaterLog = 0;
+            //             }
+            //         })
+            //         .catch(function () {
+            //             alert("Could not get today's water log."); // If the water log cannot be loaded/no data for the day
+            //         })
+            // } catch {
+            //     console.log('Water get error')
+            // }
+            // let goalRef;
+            // try {
+            //     goalRef = db.collection("Users").doc(currentUser.uid).collection("Log").doc("Water");
+            // } catch {
+            //     console.log('Current goal log is empty.')
+            // }
+            drawChart("2019-11-20", "2019-11-28")
+        }, 1500);
+    }
 
     // Draw the chart and set the chart values
-    function drawChart(water) {
-        var data = google.visualization.arrayToDataTable([
-            ['Date', 'Goal', 'Water'],
-            ['2019-11-02', 2.5, water],
-            ['2019-11-03', 2.5, water],
-            ['2019-11-04', 2.5, water],
-            ['2019-11-05', 2.5, water]
-        ]);
+    function drawChart(initial, final) {
+        let allDates = getDatesInRange(initial, final);
+        let goals = [];
+        let logs = [];
+        for (let i = 0; i < allDates.length; i++) {
+            getCurrentWaterGoal(allDates[i]).then(function(value) {
+                goals[i] = Number(value);
+            });
+            getCurrentWater(allDates[i]).then(function(value) {
+                logs[i] = Number(value);
+            });
+        }
+        let checkInterval = setInterval(function() {
+            if (logs.length === allDates.length && goals.length === allDates.length) {
+                clearInterval(checkInterval);
+                console.log('Drawing chart...');  // temporary, for debugging
 
-        // Optional; add a title and set the width and height of the chart
-        var options = { 'width': 550, 'height': 400, colors: ['#A7EEF8', '#8AB2ED'],
-            animation: {duration: 1000, startup: true, easing: 'inAndOut'}};
+                let customChartData = [['Date', 'Goal', 'Water']];
+                for (let i = 0; i < allDates.length; i++) {
+                    customChartData.push([allDates[i], goals[i], logs[i]]);
+                }
 
-        // Display the chart inside the <div> element with id="lineChart"
-        var chart = new google.visualization.SteppedAreaChart(document.getElementById('lineChart'));
-        chart.draw(data, options);
+                var data = google.visualization.arrayToDataTable(customChartData);
+
+                // Optional; add a title and set the width and height of the chart
+                var options = { 'width': 550, 'height': 400, colors: ['#A7EEF8', '#8AB2ED'],
+                    animation: {duration: 1000, startup: true, easing: 'inAndOut'}};
+
+                // Display the chart inside the <div> element with id="lineChart"
+                var chart = new google.visualization.SteppedAreaChart(document.getElementById('lineChart'));
+                chart.draw(data, options);
+            }
+        }, 50);
     }
 
     // Display the chart information in text
@@ -135,7 +155,6 @@
 
 
     displayChartInfoWater('Logs');
-    console.log(firebase.auth().currentUser); }
 
     function getDatesInRange(start, end) {  // Start and end are properly formatted dates, with start being less than end
         let dates = [start];
