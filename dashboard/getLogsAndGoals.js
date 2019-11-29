@@ -58,9 +58,7 @@ function getCurrentWater(givenDate) {
         waterRef.get() // Grabbing the data from the document
             .then(function (doc) {
                 currentWater = doc.data()[givenDate];
-                if (currentWater > 2.5) { // Default water value is 2.5L
-                    currentWater = 2.5;
-                } else if (!currentWater) {
+                if (!currentWater) {
                     currentWater = 0;
                 }
             })
