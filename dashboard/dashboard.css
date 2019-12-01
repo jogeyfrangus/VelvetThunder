@@ -2,11 +2,9 @@ body {
     overflow-x: hidden;
 }
 li {
-    float: left;
     border-right: 0.07em solid white;
 }
 li a {
-    display: block;
     text-decoration: none;
     padding: 0.5em;
     color: #414141;
@@ -24,7 +22,9 @@ li a {
 .nav-link:hover {
     background-color: rgba(0, 191, 255, 0.33);
 }
-
+button.navbar-toggler {
+    background-color: lightskyblue;
+}
 @media only screen and (max-width: 464px) {
     .navbar-nav {
         font-size: 100%;
@@ -47,11 +47,6 @@ li a {
     float: right;
 }
 
-#logo {
-    width: 30%;
-    float:right;
-}
-
 .dashboard-header {
     text-align: center;
     padding: 0.1%;
@@ -61,7 +56,7 @@ li a {
     color: #414141;
 }
 #piechart {
-    transform: translateY(32.5%) scale(1.8, 1.8);
+    transform: translateY(5em) scale(1.8, 1.8);
     overflow-x: hidden;
 }
 #today {
