@@ -4,42 +4,49 @@
 <head>
     <title>Water</title>
     <link rel="stylesheet" href="water.css">
+    <link rel="stylesheet" href="../../sitewide.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </head>
 
 <body>
-<div class="water-log-header">
-    <h1>Water Logging</h1>
-</div>
-<nav class="navbar navbar-expand-md">
-    <!--        <a class="navbar-brand" href="">Logo</a>-->
-    <!--    <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#main-navigation">-->
-    <!--        <span class="navbar-toggler-icon"></span>-->
-    <!--    </button>-->
-    <div class="collapse navbar-collapse" id="main-navigation">
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" href='../../goals'>Goals</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="../../log/water">Logs</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="../../dashboard">Dashboard</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="../../charts">Charts</a>
-            </li>
-            <li class="nav-item" id="logout">
-                <a class="nav-link" href="../../login">Logout</a>
-            </li>
-        </ul>
+<div class="container-fluid">
+    <div class="header col-md-12">
+        <h1>Water Logs</h1>
     </div>
-</nav>
+    <nav class="navbar navbar-expand-lg navbar light">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#a-navbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="a-navbar" aria-expanded="false">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href='../../goals'>Goals</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../../log/water">Logs</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../../dashboard">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../../charts">Charts</a>
+                </li>
+                <li class="nav-item" id="logout">
+                    <a class="nav-link" href="../../login">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
 
+<div class="col-md-12 text-center">
     <p id="logging-instructions">Please enter your water consumed today, in litres.</p>
     <input type="text" id="waterInputValue">
     <input type="button" id="waterInputConfirm" value="Submit Log">
-
+</div>
     <!-- Standard Firebase Content -->
     <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-firestore.js"></script>
