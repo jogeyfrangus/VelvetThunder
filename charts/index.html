@@ -222,6 +222,11 @@
             for (let i = 0; i < dateSplitString.length; i++) {
                 dateSplit.push(Number(dateSplitString[i]));
             }
+            let endSplitString = end.split('-');
+            let endSplit = [];
+            for (let i = 0; i < endSplitString.length; i++) {
+                endSplit.push(Number(endSplitString[i]));
+            }
             dateSplit[2] ++;
             if (dateSplit[1] === 1 && dateSplit[2] >= 29) {
                 dateSplit[2] = 1;
@@ -239,7 +244,7 @@
             }
             date = dateSplit.join('-');
             dates.push(date);
-            if (date >= end) {
+            if (dateSplit[0] >= endSplit[0] && dateSplit[1] >= endSplit[1] && dateSplit[2] >= endSplit[2]) {
                 break;
             }
         }
