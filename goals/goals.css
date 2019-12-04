@@ -1,12 +1,12 @@
-/*#goals {*/
-/*    text-align: center;*/
-/*}*/
-/*#goalInput {*/
-/*    display: block;*/
-/*    margin: 0 auto;*/
-/*}*/
+table {
+    margin: auto;
+    width: 90%;
+}
 
-/*#goalInputConfirm {*/
-/*    display: block;*/
-/*    margin: 0 auto;*/
-/*}*/
+th {
+    background-color: cornflowerblue;
+}
+
+td {
+    background-color: lightskyblue;
+}

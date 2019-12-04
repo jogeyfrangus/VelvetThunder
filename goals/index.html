@@ -93,6 +93,65 @@
     }
 
     goalInputConfirm.onclick = createGoal;
+
+
+    function drawGoals() {
+        let goalsTable = document.createElement('table');
+        let tableHeader = document.createElement('tr');
+        let datesHead = document.createElement('th');
+        let goalsHead = document.createElement('th');
+        datesHead.innerHTML = 'Date';
+        goalsHead.innerHTML = 'Water Consumed (L)';
+        tableHeader.appendChild(datesHead);
+        tableHeader.appendChild(goalsHead);
+        goalsTable.appendChild(tableHeader);
+        goalsTable.style.margin = "auto";
+        goalsTable.style.width = "80%";
+        // read from database
+        let waterRef;
+        try {
+            waterRef = db.collection("Users").doc(currentUser.uid).collection("Goals").doc("Water");
+        } catch {
+            console.log('Current water goal is empty.')
+        }
+        let goals;
+        try {
+            waterRef.get() // Grabbing the data from the document
+                .then(function (doc) {
+                    try {
+                        goals = doc.data();
+                        let j = 0;
+                        let goalsSorted = [];
+                        for (let goalDate in goals) {
+                            goalsSorted[j] = [goalDate, goals[goalDate]];
+                            j++;
+                        }
+                        goalsSorted.sort().reverse();
+                        for (let i = 0; i < goalsSorted.length && i < 10; i++) {
+                            let rowI = document.createElement('tr');
+                            let datesCell = document.createElement('td');
+                            let goalsCell = document.createElement('td');
+                            datesCell.innerHTML = goalsSorted[i][0];
+                            goalsCell.innerHTML = goalsSorted[i][1];
+                            rowI.appendChild(datesCell);
+                            rowI.appendChild(goalsCell);
+                            goalsTable.appendChild(rowI);
+                        }
+                        document.body.appendChild(document.createElement('br'));
+                        document.body.appendChild(goalsTable);
+                    } catch(error) {
+                        console.log(error)
+                    }
+                })
+                .catch(function () {
+                    console.log("Could not get today's water goal."); // If the water goal cannot be loaded/no data for the day
+                })
+        } catch {
+            console.log('Water get error');
+        }
+    }
+
+    setTimeout(drawGoals, 2000);
 </script>
 
 </body>
