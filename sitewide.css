@@ -18,6 +18,7 @@ li a {
     margin: 0;
     padding: 0;
     overflow: hidden;
+    filter: drop-shadow(0.2em 0.2em 0.05em grey);
 }
 .nav-link:hover {
     background-color: rgba(0, 191, 255, 0.33);
@@ -27,9 +28,8 @@ button.navbar-toggler {
 }
 
 #logout {
-    float: right;
+    border-right: none;
 }
-
 .header {
     text-align: center;
     padding: 0.1%;
@@ -37,6 +37,13 @@ button.navbar-toggler {
     font-family: "Verdana";
     border-bottom: 0.15em solid white;
     color: #414141;
+}
+
+button {
+    font-family: "Verdana";
+    background-color: skyblue;
+    border: none;
+    filter: drop-shadow(0.15em 0.15em 0.05em grey);
 }
 
 @media only screen and (max-width: 464px) {
