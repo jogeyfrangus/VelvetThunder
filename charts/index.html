@@ -44,7 +44,7 @@
 </div>
 
 <!--Displaying info through graph-->
-<div id="lineChart"></div>
+<div class="col-md-12" id="lineChart"></div>
 
 <!--Displaying info through text-->
 <div id="infoText"></div>
@@ -173,16 +173,27 @@
 
                 // Optional; add a title and set the width and height of the chart
                 var options = {
-                    width: 900,
+                    width: '120%',
                     height: 500,
                     colors: ['#A7EEF8', '#8AB2ED'],
                     animation: {duration: 1000,
                         startup: true,
                         easing: 'inAndOut'}};
 
+                // Redraw chart based on size of window
+                $(window).resize(function () {
+                    if(this.resizeTO) clearTimeout(this.resizeTO);
+                    this.resizeTO = setTimeout(function () {
+                        $(this).trigger('resizeEnd');
+                    }, 100)
+                });
+
                 // Display the chart inside the <div> element with id="lineChart"
                 var chart = new google.visualization.SteppedAreaChart(document.getElementById('lineChart'));
                 chart.draw(data, options);
+                $(window).on('resizeEnd', function () {
+                    chart.draw(data, options);
+                });
             }
         }, 50);
     }
