@@ -73,7 +73,8 @@
         let goalRef = db.collection("Users").doc(currentUser.uid).collection("Goals").doc("Water");
         goalRef.set({ [date]: newGoalInput }, {merge: true})
             .then(function () {
-                alert(`Successfully updated goal log for ${date} to ${newGoalInput} litres.`) // Successful log
+                alert(`Successfully updated goal log for ${date} to ${newGoalInput} litres.`); // Successful log
+                location.reload();
             })
             .catch(function () {
                 alert("Goal log unsuccessful.") // Unsuccessful log

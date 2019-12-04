@@ -1,0 +1,12 @@
+table {
+    margin: auto;
+    width: 90%;
+}
+
+th {
+    background-color: cornflowerblue;
+}
+
+td {
+    background-color: lightskyblue;
+}
