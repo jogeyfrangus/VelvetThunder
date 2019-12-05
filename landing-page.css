@@ -16,16 +16,14 @@ body {
 }
 
 #landingPageBtn {
-    font-size: 120%;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
     margin-bottom: 1em;
-    width: 150px;
-    height: 60px;
 }
 
 p {
     font-size: 130%;
     text-align: center;
+}
+
+a {
+  text-decoration: none;
 }
