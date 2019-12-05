@@ -56,9 +56,7 @@
             <div id="current-goals"></div>
         </div>
 
-        <div id="loadingGifWrapper" class="text-center">
-            <img id="loadingGif" src="images/loading.gif" alt="Loading..." />
-        </div>
+<!-- TODO: Add loading message? -->
 
 
 <!-- Standard Firebase Content -->
@@ -153,13 +151,6 @@
             chart.draw(data, options);
         });
 
-        // Remove loading symbol
-        try {
-            document.getElementById('loadingGifWrapper').remove();
-        } catch(error) {
-            console.log("Error removing loading symbol: ");
-            console.log(error);
-        }
     }
 
 </script>
