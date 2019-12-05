@@ -1,0 +1,31 @@
+body {
+    background: linear-gradient(white, #37afec);
+    background-repeat: repeat-x;
+    background-color: #37afec;
+}
+
+#landPageHeader {
+    border-bottom: none;
+}
+
+#logo {
+    width: 50%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#landingPageBtn {
+    font-size: 120%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 1em;
+    width: 150px;
+    height: 60px;
+}
+
+p {
+    font-size: 130%;
+    text-align: center;
+}
