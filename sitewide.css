@@ -1,9 +1,9 @@
 body {
     overflow-x: hidden;
 }
-li {
-    border-right: 0.07em solid white;
-}
+/*li {*/
+/*    border-right: 0.07em solid white;*/
+/*}*/
 li a {
     text-decoration: none;
     padding: 0.5em;
@@ -21,7 +21,8 @@ li a {
     filter: drop-shadow(0.2em 0.2em 0.05em grey);
 }
 .nav-link:hover {
-    background-color: rgba(0, 191, 255, 0.33);
+    color: black;
+    background-color: rgba(95, 193, 250, 0.75);
 }
 button.navbar-toggler {
     background-color: lightskyblue;
@@ -63,3 +64,4 @@ button {
         font-size: 80%;
     }
 }
+
