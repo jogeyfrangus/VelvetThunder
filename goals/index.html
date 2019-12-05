@@ -49,6 +49,11 @@
     <input type="text" id="goalInput">
     <button id="goalInputConfirm" class="btn btn-primary btn-sm">Submit Goal</button>
 </div>
+
+    <div id="loadingGifWrapper" class="text-center">
+        <img id="loadingGif" src="images/loading.gif" alt="Loading..." />
+    </div>
+
 <!-- Standard Firebase Content -->
 <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-firestore.js"></script>
@@ -143,6 +148,13 @@
                             goalsTable.appendChild(rowI);
                         }
                         document.body.appendChild(goalsTable);
+                        // Remove loading symbol
+                        try {
+                            document.getElementById('loadingGifWrapper').remove();
+                        } catch(error) {
+                            console.log("Error removing loading symbol: ");
+                            console.log(error);
+                        }
                     } catch(error) {
                         console.log(error)
                     }

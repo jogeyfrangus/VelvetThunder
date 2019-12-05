@@ -110,6 +110,14 @@ function drawChart() {
                 $(window).on('resizeEnd', function () {
                     chart.draw(data, options);
                 });
+
+                // Remove loading symbol
+                try {
+                    document.getElementById('loadingGifWrapper').remove();
+                } catch(error) {
+                    console.log("Error removing loading symbol: ");
+                    console.log(error);
+                }
             }
         }, 50);
     }, 1500);
