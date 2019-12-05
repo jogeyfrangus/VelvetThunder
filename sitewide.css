@@ -69,8 +69,8 @@ th {
 td {
     background-color: lightskyblue;
 }
-.fa-1x {
-    font-size: 1.5rem;
+.navbar .navbar-toggler-icon {
+    background-image: url('https://mdbootstrap.com/img/svg/hamburger7.svg?color=fff');
 }
 
 #loadingGif {
