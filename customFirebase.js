@@ -46,3 +46,19 @@ firebase.auth().onAuthStateChanged(function(user) {
         window.open('https://velvetthunder.firebase.com/login/')
     }
 });
+
+try {
+    document.getElementById('logout').onclick = function() {
+        firebase.auth().signOut()
+            .then(function() {
+                console.log('Logged out.');
+                window.open('..', '_self');
+            })
+            .catch(function(error) {
+                console.log(error);
+                window.open('..', '_self');
+            });
+    }
+} catch {
+    console.log('Could not set up logout button');
+}
