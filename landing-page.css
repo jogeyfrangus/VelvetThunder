@@ -27,3 +27,7 @@ p {
 a {
   text-decoration: none;
 }
+a.btn.btn-lg {
+    font-size: xx-large;
+    transform: translateY(20%);
+}
