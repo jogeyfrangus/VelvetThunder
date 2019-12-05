@@ -1,8 +1,3 @@
-table {
-    margin: auto;
-    width: 90%;
-}
-
 th {
     background-color: cornflowerblue;
 }
@@ -10,3 +5,4 @@ th {
 td {
     background-color: lightskyblue;
 }
+

@@ -1,9 +1,6 @@
 body {
     overflow-x: hidden;
 }
-/*li {*/
-/*    border-right: 0.07em solid white;*/
-/*}*/
 li a {
     text-decoration: none;
     padding: 0.5em;
@@ -11,13 +8,9 @@ li a {
     text-align: center;
 }
 .navbar-nav {
-    list-style-type: none;
     font-family: "Verdana";
     font-size: 120%;
     background-color: lightskyblue;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
     filter: drop-shadow(0.2em 0.2em 0.05em grey);
 }
 .nav-link:hover {
@@ -36,8 +29,12 @@ button.navbar-toggler {
     padding: 0.1%;
     background-color: cornflowerblue;
     font-family: "Verdana";
-    border-bottom: 0.15em solid white;
     color: #414141;
+    text-shadow: 0.12em 0.12em 0.05em rgba(128, 128, 128, 0.52);
+}
+
+p {
+    font-family: "Verdana";
 }
 
 button {
