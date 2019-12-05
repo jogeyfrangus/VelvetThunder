@@ -1,66 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Loading...</title>
+    <head>
+        <meta charset="UTF-8">
+        <title>Loading...</title>
 
-    <link rel="stylesheet" href="sitewide.css">
+        <link rel="stylesheet" href="sitewide.css">
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
-    <style type="text/css">
-        #logo {
-        width: 50%;
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-        }
-
-        button {
+        <style type="text/css">
+            #logo {
+            width: 50%;
             display: block;
             margin-left: auto;
             margin-right: auto;
-            margin-bottom: 1em;
-            width: 10%;
-        }
+            }
 
-        p {
-            text-align: center;
-        }
-    </style>
-</head>
-<body>
-<h1 class="header">Welcome To HydroTracker!</h1>
-<img src="images/Hydro%20Homies%20Logo.png" id="logo">
+            button {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                margin-bottom: 1em;
+                width: 10%;
+            }
 
-<p>Our application allows you to log water and set goals for consuming water.</br>
-    Drinking around 2 litres of water per day is proven to have positive health benefits, both mentally and physically.</p>
+            p {
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+        <h1 class="header">Welcome To HydroTracker!</h1>
+            <img src="images/Hydro%20Homies%20Logo.png" id="logo" alt="Hydro Tracker Logo">
 
-<button><a href="https://velvetthunder.firebaseapp.com/login/">Login Page</a></button>
-<button><a href="https://velvetthunder.firebaseapp.com/dashboard/">Dashboard</a></button>
+                <p>Our application allows you to log water and set goals for consuming water.
+                    <br>
+                    Drinking around 2 litres of water per day is proven to have positive health benefits, both mentally and physically.</p>
 
-<!-- Standard Firebase Content -->
-<script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-firestore.js"></script>
-<script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-analytics.js"></script>
-<script src="https://velvetthunder.firebaseapp.com/customFirebase.js"></script>
-<script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
-<link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
-<!-- End Standard Firebase Content -->
+            <div class="col-md-12">
+                <button><a href="https://velvetthunder.firebaseapp.com/login/">Login Page</a></button>
+                <button><a href="https://velvetthunder.firebaseapp.com/dashboard/">Dashboard</a></button>
+            </div>
 
-<!-- <script>
-    setTimeout(function() {
-        if (currentUser) {
-            window.open('https://velvetthunder.firebaseapp.com/dashboard/', '_self');
-        } else {
-            window.open('https://velvetthunder.firebaseapp.com/login/', '_self');
-        }
-    }, 2000);
-</script> -->
+        <!-- Standard Firebase Content -->
+        <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-firestore.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-analytics.js"></script>
+        <script src="https://velvetthunder.firebaseapp.com/customFirebase.js"></script>
+        <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
+        <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
+        <!-- End Standard Firebase Content -->
 
-</body>
+        <!-- <script>
+            setTimeout(function() {
+                if (currentUser) {
+                    window.open('https://velvetthunder.firebaseapp.com/dashboard/', '_self');
+                } else {
+                    window.open('https://velvetthunder.firebaseapp.com/login/', '_self');
+                }
+            }, 2000);
+        </script> -->
+
+    </body>
 </html>
