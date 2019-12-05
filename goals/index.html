@@ -109,6 +109,9 @@
         goalsTable.style.margin = "auto";
         goalsTable.style.width = "90%";
         goalsTable.style.filter = "drop-shadow(0.2em 0.2em 0.05em grey)";
+        goalsTable.style.textAlign = "center";
+        goalsTable.style.fontSize = "110%";
+        goalsTable.style.transform = "translateY(30%)";
         // read from database
         let waterRef;
         try {
@@ -139,7 +142,6 @@
                             rowI.appendChild(goalsCell);
                             goalsTable.appendChild(rowI);
                         }
-                        document.body.appendChild(document.createElement('br'));
                         document.body.appendChild(goalsTable);
                     } catch(error) {
                         console.log(error)
