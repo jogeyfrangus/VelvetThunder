@@ -82,6 +82,15 @@
     google.charts.load('current', { 'packages': ['corechart'] });
     google.charts.setOnLoadCallback(getWaterLog);
 
+    function removeLoadingSymbol() {
+        // Remove loading symbol
+        try {
+            document.getElementById('loadingGifWrapper').remove();
+        } catch(error) {
+            console.log("Error removing loading symbol: ");
+            console.log(error);
+        }
+    }
 
     function currentDate() {
         let today = new Date();
@@ -153,6 +162,7 @@
             chart.draw(data, options);
         });
 
+        removeLoadingSymbol();
     }
 
 </script>
