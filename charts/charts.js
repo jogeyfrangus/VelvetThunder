@@ -3,6 +3,16 @@ google.charts.load('current', { 'packages': ['corechart'] });
 google.charts.setOnLoadCallback(setDates);
 
 
+function removeLoadingSymbol() {
+    // Remove loading symbol
+    try {
+        document.getElementById('loadingGifWrapper').remove();
+    } catch(error) {
+        console.log("Error removing loading symbol: ");
+        console.log(error);
+    }
+}
+
 function currentDate() {
     let today = new Date();
     let dateToday = today.getFullYear() + '-' + String(Number(today.getMonth()) + 1) + '-' + today.getDate();
@@ -53,74 +63,66 @@ function setDates() {
     }
     document.getElementById('initialDate').value = initialDateSplit.join('-');
     document.getElementById('finalDate').value = currentDateSplit.join('-');
-    drawChart();
+    setTimeout(drawChart, 1500);
 }
 
 // Draw the chart and set the chart values
 function drawChart() {
-    setTimeout(function() {
-        let initial = document.getElementById('initialDate').value;
-        let final = document.getElementById('finalDate').value;
-        let allDates = getDatesInRange(initial, final);
-        let goals = [];
-        let logs = [];
-        for (let i = 0; i < allDates.length; i++) {
-            getCurrentWaterGoal(allDates[i]).then(function (value) {
-                goals[i] = Number(value);
-            });
-            getCurrentWater(allDates[i]).then(function (value) {
-                logs[i] = Number(value);
-            });
-        }
-        let checkInterval = setInterval(function () {
-            if (logs.length === allDates.length && goals.length === allDates.length) {
-                clearInterval(checkInterval);
-                console.log('Drawing chart...');  // temporary, for debugging
+    let initial = document.getElementById('initialDate').value;
+    let final = document.getElementById('finalDate').value;
+    let allDates = getDatesInRange(initial, final);
+    let goals = [];
+    let logs = [];
+    for (let i = 0; i < allDates.length; i++) {
+        getCurrentWaterGoal(allDates[i]).then(function (value) {
+            goals[i] = Number(value);
+        });
+        getCurrentWater(allDates[i]).then(function (value) {
+            logs[i] = Number(value);
+        });
+    }
+    let checkInterval = setInterval(function () {
+        if (logs.length === allDates.length && goals.length === allDates.length) {
+            clearInterval(checkInterval);
+            console.log('Drawing chart...');  // temporary, for debugging
 
-                let customChartData = [['Date', 'Goal', 'Water']];
-                for (let i = 0; i < allDates.length; i++) {
-                    customChartData.push([allDates[i], goals[i], logs[i]]);
-                }
-
-                var data = google.visualization.arrayToDataTable(customChartData);
-
-                // Optional; add a title and set the width and height of the chart
-                var options = {
-                    width: '120%',
-                    height: 500,
-                    colors: ['#A7EEF8', '#8AB2ED'],
-                    animation: {
-                        duration: 1000,
-                        startup: true,
-                        easing: 'inAndOut'
-                    }
-                };
-
-                // Redraw chart based on size of window
-                $(window).resize(function () {
-                    if (this.resizeTO) clearTimeout(this.resizeTO);
-                    this.resizeTO = setTimeout(function () {
-                        $(this).trigger('resizeEnd');
-                    }, 100)
-                });
-
-                // Display the chart inside the <div> element with id="lineChart"
-                var chart = new google.visualization.SteppedAreaChart(document.getElementById('lineChart'));
-                chart.draw(data, options);
-                $(window).on('resizeEnd', function () {
-                    chart.draw(data, options);
-                });
-
-                // Remove loading symbol
-                try {
-                    document.getElementById('loadingGifWrapper').remove();
-                } catch(error) {
-                    console.log("Error removing loading symbol: ");
-                    console.log(error);
-                }
+            let customChartData = [['Date', 'Goal', 'Water']];
+            for (let i = 0; i < allDates.length; i++) {
+                customChartData.push([allDates[i], goals[i], logs[i]]);
             }
-        }, 50);
-    }, 1500);
+
+            var data = google.visualization.arrayToDataTable(customChartData);
+
+            // Optional; add a title and set the width and height of the chart
+            var options = {
+                width: '120%',
+                height: 500,
+                colors: ['#A7EEF8', '#8AB2ED'],
+                animation: {
+                    duration: 1000,
+                    startup: true,
+                    easing: 'inAndOut'
+                }
+            };
+
+            // Redraw chart based on size of window
+            $(window).resize(function () {
+                if (this.resizeTO) clearTimeout(this.resizeTO);
+                this.resizeTO = setTimeout(function () {
+                    $(this).trigger('resizeEnd');
+                }, 100)
+            });
+
+            // Display the chart inside the <div> element with id="lineChart"
+            var chart = new google.visualization.SteppedAreaChart(document.getElementById('lineChart'));
+            chart.draw(data, options);
+            $(window).on('resizeEnd', function () {
+                chart.draw(data, options);
+            });
+
+            removeLoadingSymbol();
+        }
+    }, 50);
 }
 
 // Display the chart information in text

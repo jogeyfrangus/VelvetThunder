@@ -1,3 +1,13 @@
+function removeLoadingSymbol() {
+    // Remove loading symbol
+    try {
+        document.getElementById('loadingGifWrapper').remove();
+    } catch(error) {
+        console.log("Error removing loading symbol: ");
+        console.log(error);
+    }
+}
+
 function currentDate(){
     let today = new Date();
     let dateToday = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
@@ -78,13 +88,7 @@ function drawLogs() {
                     }
                     document.body.appendChild(document.createElement('br'));
                     document.body.appendChild(logsTable);
-                    // Remove loading symbol
-                    try {
-                        document.getElementById('loadingGifWrapper').remove();
-                    } catch(error) {
-                        console.log("Error removing loading symbol: ");
-                        console.log(error);
-                    }
+                    removeLoadingSymbol();
                 } catch(error) {
                     console.log(error)
                 }

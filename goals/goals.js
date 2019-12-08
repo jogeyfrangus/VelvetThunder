@@ -1,6 +1,17 @@
 let goalInput = document.getElementById("goalInput");
 let goalInputConfirm = document.getElementById("goalInputConfirm");
 
+
+function removeLoadingSymbol() {
+    // Remove loading symbol
+    try {
+        document.getElementById('loadingGifWrapper').remove();
+    } catch(error) {
+        console.log("Error removing loading symbol: ");
+        console.log(error);
+    }
+}
+
 function currentDate() {
     let today = new Date();
     let dateToday = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
@@ -80,13 +91,7 @@ function drawGoals() {
                         goalsTable.appendChild(rowI);
                     }
                     document.body.appendChild(goalsTable);
-                    // Remove loading symbol
-                    try {
-                        document.getElementById('loadingGifWrapper').remove();
-                    } catch(error) {
-                        console.log("Error removing loading symbol: ");
-                        console.log(error);
-                    }
+                    removeLoadingSymbol();
                 } catch(error) {
                     console.log(error)
                 }
