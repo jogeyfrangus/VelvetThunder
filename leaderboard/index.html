@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang='en'>
+
 <head>
-    <meta charset="UTF-8">
-    <title>Charts | HydroTracker</title>
-    <link rel="stylesheet" href="charts.css">
+    <title>Leaderboard | HydroTracker</title>
     <link rel="stylesheet" href="../sitewide.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -13,11 +12,11 @@
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             crossorigin="anonymous"></script>
 </head>
-<body>
 
+<body>
 <div class="container-fluid">
     <div class="header col-md-12">
-        <h1>Charts</h1>
+        <h1>Water Logs</h1>
     </div>
 
     <div class="col-md-12">
@@ -49,16 +48,13 @@
             </div>
         </nav>
     </div>
-
-    <!--Displaying info through graph-->
-    <div class="col-md-12" id="lineChart"></div>
-
-    <div class="col-md-12 text-center">
-        <label for="initialDate"></label><input id="initialDate" type="date"/>
-        <label for="finalDate"></label><input id="finalDate" type="date"/>
-        <button id="updateButton" onclick="drawChart()" class="btn btn-primary btn-sm">Update Chart</button>
-    </div>
 </div>
+
+<div id="loadingGifWrapper" class="text-center">
+    <img id="loadingGif" src="images/loading.gif" alt="Loading..."/>
+</div>
+
+
 <!-- Standard Firebase Content -->
 <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-firestore.js"></script>
@@ -69,14 +65,8 @@
 <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css"/>
 <!-- End Standard Firebase Content -->
 
+
+<!-- Actual code -->
 <script src="../sitewide.js"></script>
-
-<!-- Google Charts Code -->
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-
-<script type="text/javascript" src="charts.js"></script>
-<div id="loadingGifWrapper" class="text-center">
-    <img id="loadingGif" src="images/loading.gif" alt="Loading..."/>
-</div>
+<script src="leaderboard.js"></script>
 </body>
-</html>

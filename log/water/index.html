@@ -3,12 +3,14 @@
 
 <head>
     <title>Water | HydroTracker</title>
-    <link rel="stylesheet" href="water.css">
     <link rel="stylesheet" href="../../sitewide.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -36,12 +38,16 @@
                     <li class="nav-item">
                         <a class="nav-link" href="../../charts">Charts</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../leaderboard">Leaderboard</a>
+                    </li>
                     <li class="nav-item" id="logout">
                         <a class="nav-link" href="../../index.html">Logout</a>
                     </li>
                 </ul>
             </div>
         </nav>
+    </div>
 </div>
 
 <div class="col-md-12 text-center">
@@ -50,24 +56,23 @@
     <button id="waterInputConfirm" class="btn btn-primary btn-sm">Submit Log</button>
 </div>
 
-    <div id="loadingGifWrapper" class="text-center">
-        <img id="loadingGif" src="images/loading.gif" alt="Loading..." />
-    </div>
+<div id="loadingGifWrapper" class="text-center">
+    <img id="loadingGif" src="images/loading.gif" alt="Loading..."/>
+</div>
 
 
-    <!-- Standard Firebase Content -->
-    <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-firestore.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-analytics.js"></script>
-    <script src="https://velvetthunder.firebaseapp.com/customFirebase.js"></script>
-    <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
-    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
-    <!-- End Standard Firebase Content -->
+<!-- Standard Firebase Content -->
+<script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-analytics.js"></script>
+<script src="https://velvetthunder.firebaseapp.com/customFirebase.js"></script>
+<script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
+<link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css"/>
+<!-- End Standard Firebase Content -->
 
 
-
-    <!-- Actual code -->
-    <script src="../../sitewide.js"></script>
-    <script src="water.js"></script>
+<!-- Actual code -->
+<script src="../../sitewide.js"></script>
+<script src="water.js"></script>
 </body>
