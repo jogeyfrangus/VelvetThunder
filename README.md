@@ -33,7 +33,10 @@
 - firestore.rules
 
 ### Landing page
+###### HTML Content
 - index.html
+###### Stylesheet
+- landing-page.css
 
 ### Content for use across the entire site
 ###### Custom 404 page
@@ -50,3 +53,5 @@
 ### Git content
 ###### Files to exclude from version control
 - .gitignore
+###### README file
+- README.md
