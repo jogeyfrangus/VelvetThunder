@@ -84,7 +84,7 @@ function logCreation(date, waterInput) {
     waterRef.set({ [date]: waterInput }, {merge: true}) // Logging the date as the key and the inputted water as the value
         .then(function () {
             alert(`Successfully updated water log for ${date} to ${waterInput} litres.`); // Successful log
-            location.reload();
+            setLeader(date, waterInput);
         })
         .catch(function () {
             alert("Water log unsuccessful.") // Unsuccessful log
@@ -100,4 +100,19 @@ function createLog() {
     } else {
         alert('Not a valid number.')
     }
+}
+
+function setLeader(dateSet, waterSet) {
+    let lbRef = db.collection("Daily").doc(currentUser.uid);
+    lbRef.set({
+        "Name": currentUser.displayName,
+        "Date": dateSet,
+        "Water": waterSet
+    }, {merge: false})
+        .then(function(){
+            location.reload();
+        })
+        .catch(function() {
+            console.log("Error setting daily consumption for leaderboard")
+        });
 }
