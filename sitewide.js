@@ -78,3 +78,26 @@ function getCurrentWater(givenDate) {
     return tempPromise
 }
 
+// This is when a user inputs a new water log (new date)
+function logCreation(date, waterInput) {
+    let waterRef = db.collection("Users").doc(currentUser.uid).collection("Log").doc("Water");
+    waterRef.set({ [date]: waterInput }, {merge: true}) // Logging the date as the key and the inputted water as the value
+        .then(function () {
+            alert(`Successfully updated water log for ${date} to ${waterInput} litres.`); // Successful log
+            location.reload();
+        })
+        .catch(function () {
+            alert("Water log unsuccessful.") // Unsuccessful log
+        });
+}
+
+function createLog() {
+    let userInput = document.getElementById("waterInputValue").value;
+    if (!isNaN(userInput)) {
+        if (confirm('Are you sure?')) {
+            logCreation(currentDate(), Number(userInput));
+        }
+    } else {
+        alert('Not a valid number.')
+    }
+}

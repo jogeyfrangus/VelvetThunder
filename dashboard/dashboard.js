@@ -72,3 +72,5 @@ function drawChart(water, waterGoal) {
 
     removeLoadingSymbol();
 }
+
+document.getElementById('waterInputConfirm').onclick = createLog;
