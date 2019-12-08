@@ -24,7 +24,6 @@ function drawLeaderboard() {
     } catch(error) {
         console.log(error)
     }
-    let users;
     try {
         lbRef.where("Date", "==", currentDate()).orderBy("Water", "desc").limit(10).get() // Grabbing the data from the document
             .then(function (querySnapshot) {
