@@ -3,22 +3,6 @@ google.charts.load('current', { 'packages': ['corechart'] });
 google.charts.setOnLoadCallback(setDates);
 
 
-function removeLoadingSymbol() {
-    // Remove loading symbol
-    try {
-        document.getElementById('loadingGifWrapper').remove();
-    } catch(error) {
-        console.log("Error removing loading symbol: ");
-        console.log(error);
-    }
-}
-
-function currentDate() {
-    let today = new Date();
-    let dateToday = today.getFullYear() + '-' + String(Number(today.getMonth()) + 1) + '-' + today.getDate();
-    return dateToday.toString();
-}
-
 function dateSubtract(date, num) {
     let dateSplit = date.split('-');
     for (let i = 0; i < dateSplit.length; i++) {
@@ -124,21 +108,6 @@ function drawChart() {
         }
     }, 50);
 }
-
-// Display the chart information in text
-function displayChartInfoWater(category) {
-    let waterRef = db.collection(category).get().then(function (querySnapshot) {
-        querySnapshot.forEach(function (doc) {
-            let displayedInfo = document.createElement('p');
-            document.getElementById('infoText').appendChild(displayedInfo);
-            let infoNode = document.createTextNode(doc.data().name);
-            displayedInfo.appendChild(infoNode);
-        })
-    })
-}
-
-
-displayChartInfoWater('Logs');
 
 function getDatesInRange(start, end) {  // Start and end are properly formatted dates, with start being less than end
     let dates = [start];

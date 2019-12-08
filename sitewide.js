@@ -1,3 +1,22 @@
+/// Sitewide javascript functions
+
+
+function currentDate() {
+    let today = new Date();
+    let dateToday = today.getFullYear() + '-' + String(Number(today.getMonth()) + 1) + '-' + today.getDate();
+    return dateToday.toString();
+}
+
+function removeLoadingSymbol() {
+    // Remove loading symbol
+    try {
+        document.getElementById('loadingGifWrapper').remove();
+    } catch(error) {
+        console.log("Error removing loading symbol: ");
+        console.log(error);
+    }
+}
+
 function getCurrentWaterGoal(givenDate) {
     let goalRef;
     let waterGoal;  // No default value set, so that the code can check when the computation finishes
@@ -58,3 +77,4 @@ function getCurrentWater(givenDate) {
     });
     return tempPromise
 }
+

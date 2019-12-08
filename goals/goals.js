@@ -2,22 +2,6 @@ let goalInput = document.getElementById("goalInput");
 let goalInputConfirm = document.getElementById("goalInputConfirm");
 
 
-function removeLoadingSymbol() {
-    // Remove loading symbol
-    try {
-        document.getElementById('loadingGifWrapper').remove();
-    } catch(error) {
-        console.log("Error removing loading symbol: ");
-        console.log(error);
-    }
-}
-
-function currentDate() {
-    let today = new Date();
-    let dateToday = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-    return dateToday.toString();
-}
-
 function goalCreation(date, newGoalInput) {
     let goalRef = db.collection("Users").doc(currentUser.uid).collection("Goals").doc("Water");
     goalRef.set({ [date]: newGoalInput }, {merge: true})
