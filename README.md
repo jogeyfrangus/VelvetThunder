@@ -36,6 +36,7 @@
 - 404.html
 - customFirebase.js
 - sitewide.css
+- sitewide.js
 - standard_firebase.html
 
 ### Git content
