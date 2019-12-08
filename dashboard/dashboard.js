@@ -33,10 +33,14 @@ function getWaterLog() {
 
 // Draw the chart and set the chart values
 function drawChart(water, waterGoal) {
+    let remainingGoal = waterGoal - water;
+    if (remainingGoal < 0) {
+        remainingGoal = 0;
+    }
     var data = google.visualization.arrayToDataTable([
         ['Daily Log', 'Litres'],
         ['Water Consumed', water],
-        ['Remaining Goal', waterGoal - water]
+        ['Remaining Goal', remainingGoal]
     ]);
 
     // Optional; add a title and set the width and height of the chart
